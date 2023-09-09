@@ -10,11 +10,33 @@
 :root {
   --font-roboto: "Roboto Slab", serif;
   --font-raleway: "Raleway", sans-serif;
+
+  --primary-text-color: #f9d3b4;
+  --background-color-dark: #212426;
+  --background-color-light: #f9d3b4;
+  --title-background-start: rgba(
+    249,
+    211,
+    180,
+    1
+  ); /* title background start color */
+  --title-background-end: rgba(
+    249,
+    211,
+    180,
+    0
+  ); /* title background end color */
+
+  --input-background: #1f2123;
+  --input-shadow-dark: #1c1d1f;
+  --input-shadow-light: #222527;
+  --input-hover-scale: 1.02;
+  --button-hover-scale: 1.05;
 }
 
 body {
   font-family: var(--font-roboto);
-  background-color: #212426;
+  background-color: var(--background-color-dark);
 }
 
 .app-container {
@@ -27,21 +49,30 @@ body {
 
 .app-title {
   font-size: 3rem;
-  letter-spacing: 0.6rem;
+  letter-spacing: 0.9rem;
   background: linear-gradient(
     90deg,
-    rgba(249, 211, 180, 1) 10%,
-    rgba(249, 211, 180, 0) 100%
+    var(--title-background-start) 10%,
+    var(--title-background-end) 100%
   );
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  /* width: fit-content; */
+  width: fit-content;
+}
+
+.selection-form {
+  width: 100%;
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .selection-body {
   width: 100%;
-  margin-top: 3rem;
+  margin-bottom: 3rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -49,63 +80,74 @@ body {
   gap: 1rem;
 }
 
-.selection-title {
+.selection-label {
   font-size: 1.25rem;
-  color: #f9d3b4;
+  color: var(--primary-text-color);
   font-family: var(--font-raleway);
 }
 
 .loading {
   font-size: 1.25rem;
-  color: #f9d3b4;
+  color: var(--primary-text-color);
   font-family: var(--font-raleway);
 }
 
-.search {
-  width: 71%;
-  margin: 4rem 0 2rem;
-
+.search-button {
   display: flex;
   align-items: center;
   justify-content: center;
-
-  padding: 1.5rem 1.75rem;
-  border-radius: 3rem;
-  background: #1f2123;
-  -webkit-box-shadow: 5px 5px 7px #1c1d1f, -5px -5px 7px #222527;
-  box-shadow: 5px 5px 7px #1c1d1f, -5px -5px 7px #222527;
+  border-radius: 50%;
+  background: transparent;
 }
 
-.search input {
-  flex: 1;
+.selection-body select,
+.selection-body input {
+  width: 100%;
+  text-align: center;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-family: var(--font-raleway);
   font-weight: 500;
-  padding-right: 1rem;
 
   outline: none;
   color: #a1a1a1;
   background: #1f2123;
+
+  -webkit-box-shadow: 5px 5px 7px var(--input-shadow-dark),
+    -5px -5px 7px var(--input-shadow-light);
+  box-shadow: 5px 5px 7px var(--input-shadow-dark),
+    -5px -5px 7px var(--input-shadow-light);
+  transition: transform 0.2s ease-in-out;
 }
 
-.search img {
+.selection-body select:hover,
+.selection-body input:hover {
+  transform: scale(var(--input-hover-scale));
+}
+
+select option:checked {
+  background-color: var(--background-color-light);
+  color: #333;
+  font-weight: bold;
+}
+
+select option:hover {
+  background-color: var(--background-color-light);
+  color: #fff; /* Change the text color on hover */
+}
+
+.search-button img {
   width: 35px;
   height: 35px;
   cursor: pointer;
+  transition: transform 0.2s ease-in-out;
 }
 
-/* .container {
-  width: 100%;
-  margin-top: 3rem;
+.search-button img:hover {
+  transform: scale(var(--button-hover-scale));
+}
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-} */
-
-.quizz {
+/* .quizz {
   width: 310px;
   height: 460px;
   margin: 1.5rem;
@@ -122,43 +164,18 @@ body {
 .quizz:hover {
   box-shadow: 0px 30px 18px -8px rgba(0, 0, 0, 0.1);
   transform: scale(1.05, 1.05);
-}
+} */
 
 @media screen and (max-width: 600px) {
-  .app {
-    padding: 4rem 2rem;
-  }
-
-  .search {
-    padding: 1rem 1.75rem;
-    width: 100%;
-  }
-
-  .search input {
-    font-size: 1rem;
-  }
-
-  .search img {
+  .search-button img {
     width: 20px;
     height: 20px;
   }
 }
 
 @media screen and (max-width: 400px) {
-  .app {
-    padding: 4rem 1rem;
-  }
-
   .app-title {
     font-size: 2rem;
-  }
-
-  .container {
-    margin-top: 2rem;
-  }
-
-  .quizz {
-    width: "100%";
-    margin: 1rem;
+    letter-spacing: 0.5rem;
   }
 }

@@ -1,12 +1,11 @@
 import React, { useState } from "react"
-import otherOptions from "../assets/data/options.json"
-// import SearchIcon from "./assets/search.svg"
+import options from "../assets/data/options.json"
+import SearchIcon from "../assets/search.svg"
 
 const SelectionForm = ({ categories }) => {
-  // const [searchTerm, setSearchTerm] = useState("")
-  const { difficultyOptions, typeOptions } = otherOptions
+  const { difficultyOptions, typeOptions } = options
 
-  const [options, setOptions] = useState({
+  const [selections, setselections] = useState({
     category: "",
     difficulty: "",
     type: "",
@@ -15,22 +14,43 @@ const SelectionForm = ({ categories }) => {
 
   const handleSelectionChange = (event) => {
     const { name, value } = event.target
-    setOptions((prevOptions) => ({
-      ...prevOptions,
+    setselections((prevselections) => ({
+      ...prevselections,
       [name]: value,
     }))
   }
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log("submitted")
+    let apiUrl = `https://opentdb.com/api.php?amount=${selections.amount}`
+
+    if (selections.category.length) {
+      apiUrl = apiUrl.concat(`&category=${selections.category}`)
+    }
+    if (selections.difficulty.length) {
+      apiUrl = apiUrl.concat(`&difficulty=${selections.difficulty}`)
+    }
+    if (selections.type.length) {
+      apiUrl = apiUrl.concat(`&type=${selections.type}`)
+    }
+    await fetch(apiUrl)
+      .then((res) => res.json())
+      .then((response) => {
+        console.log(response.results)
+      })
+  }
+
   return (
-    <div>
+    <form onSubmit={handleSubmit} className='selection-form'>
       <div className='selection-body'>
-        <h2 className='selection-title'>Select Category:</h2>
+        <label className='selection-label'>Selection Category:</label>
         <select
           name='category'
-          value={options.category}
+          value={selections.category}
           onChange={handleSelectionChange}
         >
-          <option>All</option>
+          <option value=''>All</option>
           {categories &&
             categories.map((category) => (
               <option value={category.id} key={category.id}>
@@ -40,10 +60,10 @@ const SelectionForm = ({ categories }) => {
         </select>
       </div>
       <div className='selection-body'>
-        <h2 className='selection-title'>Select Difficulty:</h2>
+        <label className='selection-label'>Selection Difficulty:</label>
         <select
           name='difficulty'
-          value={options.difficulty}
+          value={selections.difficulty}
           onChange={handleSelectionChange}
         >
           {difficultyOptions.map((option) => (
@@ -54,10 +74,10 @@ const SelectionForm = ({ categories }) => {
         </select>
       </div>
       <div className='selection-body'>
-        <h2 className='selection-title'>Select Question Type:</h2>
+        <label className='selection-label'>Selection Question Type:</label>
         <select
           name='type'
-          value={options.type}
+          value={selections.type}
           onChange={handleSelectionChange}
         >
           {typeOptions.map((option) => (
@@ -68,15 +88,18 @@ const SelectionForm = ({ categories }) => {
         </select>
       </div>
       <div className='selection-body'>
-        <h2 className='selection-title'>Amount of Questions:</h2>
+        <label className='selection-label'>Amount of Questions:</label>
         <input
           name='amount'
           type='number'
-          value={options.amount}
+          value={selections.amount}
           onChange={handleSelectionChange}
         />
       </div>
-    </div>
+      <button type='submit' className='search-button'>
+        <img src={SearchIcon} alt='Search-img' />
+      </button>
+    </form>
   )
 }
 

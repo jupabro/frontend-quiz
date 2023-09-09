@@ -8,20 +8,23 @@ const App = () => {
 
   useEffect(() => {
     const apiUrl = `https://opentdb.com/api_category.php`
-    setIsLoading(true)
     fetch(apiUrl)
       .then((res) => res.json())
       .then((jsonData) => {
         setCategories(jsonData.trivia_categories)
+        setIsLoading(false)
       })
-      .then(setIsLoading(false))
   }, [setCategories])
 
   return (
     <div className='app-container'>
       <h1 className='app-title'>QuizzLand</h1>
       <div className='selection-container'>
-        {!isLoading ? <SelectionForm categories={categories}/> : <p className='loading'>LOADING...</p>}
+        {!isLoading ? (
+          <SelectionForm categories={categories} />
+        ) : (
+          <p className='loading'>LOADING...</p>
+        )}
       </div>
     </div>
   )
