@@ -1,0 +1,13 @@
+{
+  "difficultyOptions": [
+    { "value": "", "label": "All", "key": "difficulty-0" },
+    { "value": "easy", "label": "Easy", "key": "difficulty-1" },
+    { "value": "medium", "label": "Medium", "key": "difficulty-2" },
+    { "value": "hard", "label": "Hard", "key": "difficulty-3" }
+  ],
+  "typeOptions": [
+    { "value": "", "label": "All", "key": "type-0" },
+    { "value": "multiple", "label": "Multiple Choice", "key": "type-1" },
+    { "value": "boolean", "label": "True/False", "key": "type-2" }
+  ]
+}
