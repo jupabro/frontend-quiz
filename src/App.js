@@ -1,6 +1,6 @@
 import "./App.css"
 import React, { useState, useEffect } from "react"
-import options from "./assets/data/options.json"
+import otherOptions from "./assets/data/options.json"
 // import SearchIcon from "./assets/search.svg"
 
 // const API_URL =
@@ -9,13 +9,15 @@ import options from "./assets/data/options.json"
 const App = () => {
   // const [searchTerm, setSearchTerm] = useState("")
   const [categories, setCategories] = useState([])
-  const { difficultyOptions, typeOptions } = options
+  const { difficultyOptions, typeOptions } = otherOptions
   const [isLoading, setIsLoading] = useState(true)
 
-  const [category, setCategory] = useState("")
-  const [difficulty, setDifficulty] = useState("")
-  const [type, setType] = useState("")
-  const [number, setNumber] = useState(10)
+  const [options, setOptions] = useState({
+    category: "",
+    difficulty: "",
+    type: "",
+    amount: 10,
+  })
 
   useEffect(() => {
     const apiUrl = `https://opentdb.com/api_category.php`
@@ -29,17 +31,13 @@ const App = () => {
       .then(setIsLoading(false))
   }, [setCategories])
 
-  const selectCategory = (event) => {
-    setCategory(event.target.value)
-  }
-  const handleDifficultyChange = (event) => {
-    setDifficulty(event.target.value)
-  }
-  const handleTypeChange = (event) => {
-    setType(event.target.value)
-  }
-  const handleAmountChange = (event) => {
-    setNumber(event.target.value)
+  const handleSelectionChange = (event) => {
+    const { name, value } = event.target
+    console.log(event.target.value)
+    setOptions((prevOptions) => ({
+      ...prevOptions,
+      [name]: value,
+    }))
   }
 
   return (
@@ -50,7 +48,11 @@ const App = () => {
           <>
             <div className='selection-body'>
               <h2 className='selection-title'>Select Category:</h2>
-              <select value={category} onChange={selectCategory}>
+              <select
+                name='category'
+                value={options.category}
+                onChange={handleSelectionChange}
+              >
                 <option>All</option>
                 {categories &&
                   categories.map((category) => (
@@ -62,7 +64,11 @@ const App = () => {
             </div>
             <div className='selection-body'>
               <h2 className='selection-title'>Select Difficulty:</h2>
-              <select value={difficulty} onChange={handleDifficultyChange}>
+              <select
+                name='difficulty'
+                value={options.difficulty}
+                onChange={handleSelectionChange}
+              >
                 {difficultyOptions.map((option) => (
                   <option value={option.value} key={option.key}>
                     {option.label}
@@ -72,7 +78,11 @@ const App = () => {
             </div>
             <div className='selection-body'>
               <h2 className='selection-title'>Select Question Type:</h2>
-              <select value={type} onChange={handleTypeChange}>
+              <select
+                name='type'
+                value={options.type}
+                onChange={handleSelectionChange}
+              >
                 {typeOptions.map((option) => (
                   <option value={option.value} key={option.key}>
                     {option.label}
@@ -82,7 +92,12 @@ const App = () => {
             </div>
             <div className='selection-body'>
               <h2 className='selection-title'>Amount of Questions:</h2>
-              <input value={number} onChange={handleAmountChange} />
+              <input
+                name='amount'
+                type='number'
+                value={options.amount}
+                onChange={handleSelectionChange}
+              />
             </div>
           </>
         ) : (
