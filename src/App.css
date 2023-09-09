@@ -51,18 +51,32 @@ body {
   width: fit-content;
 }
 
+.selection-container {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
 .selection-form {
   width: 100%;
   margin-bottom: 3rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
+  gap: 2rem;
+}
+
+.selection-title {
+  font-size: 1.25rem;
+  color: var(--primary-text-color);
+  font-family: var(--font-raleway);
+  margin-bottom: 0.5rem;
+  text-align: center;
+  margin: 0 auto;
 }
 
 .selection-body {
   width: 100%;
-  margin-bottom: 3rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -71,9 +85,22 @@ body {
 }
 
 .selection-label {
-  font-size: 1.25rem;
+  font-size: 1rem;
   color: var(--primary-text-color);
   font-family: var(--font-raleway);
+  margin-bottom: 0.5rem;
+}
+
+@media screen and (max-height: 650px) {
+  .selection-body {
+    gap: 0.25rem;
+  }
+  .selection-form {
+    gap: 1rem;
+  }
+  .selection-label {
+    font-size: 0.8rem;
+  }
 }
 
 .loading {

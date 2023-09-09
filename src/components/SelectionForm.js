@@ -62,8 +62,9 @@ const SelectionForm = ({ categories }) => {
 
   return (
     <form onSubmit={handleSubmit} className='selection-form'>
+      <h2 className='selection-title'>Configure your Quizz-Session</h2>
       <div className='selection-body'>
-        <label className='selection-label'>Selection Category:</label>
+        <label className='selection-label'>Category:</label>
         <select
           name='category'
           value={selections.category}
@@ -79,7 +80,7 @@ const SelectionForm = ({ categories }) => {
         </select>
       </div>
       <div className='selection-body'>
-        <label className='selection-label'>Selection Difficulty:</label>
+        <label className='selection-label'>Difficulty:</label>
         <select
           name='difficulty'
           value={selections.difficulty}
@@ -93,7 +94,7 @@ const SelectionForm = ({ categories }) => {
         </select>
       </div>
       <div className='selection-body'>
-        <label className='selection-label'>Selection Question Type:</label>
+        <label className='selection-label'>Type:</label>
         <select
           name='type'
           value={selections.type}
@@ -107,7 +108,7 @@ const SelectionForm = ({ categories }) => {
         </select>
       </div>
       <div className='selection-body'>
-        <label className='selection-label'>Amount of Questions:</label>
+        <label className='selection-label'>Amount</label>
         <input
           name='amount'
           type='number'
