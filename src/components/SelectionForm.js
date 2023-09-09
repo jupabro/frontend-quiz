@@ -1,9 +1,17 @@
 import React, { useState } from "react"
 import options from "../assets/data/options.json"
 import SearchIcon from "../assets/search.svg"
+import { useDispatch } from "react-redux"
+import { useSelector } from "react-redux"
+import { submitSelections } from "../actions"
 
 const SelectionForm = ({ categories }) => {
   const { difficultyOptions, typeOptions } = options
+  const dispatch = useDispatch()
+
+  const storedSubmittedSelections = useSelector(
+    (state) => state.selection.submittedSelections
+  ) // Changed variable name to avoid conflict
 
   const [selections, setselections] = useState({
     category: "",
@@ -21,8 +29,8 @@ const SelectionForm = ({ categories }) => {
   }
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    console.log("submitted")
+    event.preventDefault()
+
     let apiUrl = `https://opentdb.com/api.php?amount=${selections.amount}`
 
     if (selections.category.length) {
@@ -34,11 +42,22 @@ const SelectionForm = ({ categories }) => {
     if (selections.type.length) {
       apiUrl = apiUrl.concat(`&type=${selections.type}`)
     }
-    await fetch(apiUrl)
-      .then((res) => res.json())
-      .then((response) => {
-        console.log(response.results)
-      })
+    try {
+      const response = await fetch(apiUrl)
+      const data = await response.json()
+
+      if (data.results && data.results.length > 0) {
+        const { category, type, difficulty } = data.results[0]
+        const amount = data.results.length
+        dispatch(submitSelections(category, difficulty, type, amount))
+        console.log(data.results)
+        console.log("storedSubmittedSelections", storedSubmittedSelections)
+      } else {
+        console.log("No questions found in the response.")
+      }
+    } catch (error) {
+      console.error("An error occurred while fetching the data:", error)
+    }
   }
 
   return (

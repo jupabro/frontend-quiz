@@ -14,18 +14,8 @@
   --primary-text-color: #f9d3b4;
   --background-color-dark: #212426;
   --background-color-light: #f9d3b4;
-  --title-background-start: rgba(
-    249,
-    211,
-    180,
-    1
-  ); /* title background start color */
-  --title-background-end: rgba(
-    249,
-    211,
-    180,
-    0
-  ); /* title background end color */
+  --title-background-start: rgba(249, 211, 180, 1);
+  --title-background-end: rgba(249, 211, 180, 0);
 
   --input-background: #1f2123;
   --input-shadow-dark: #1c1d1f;
