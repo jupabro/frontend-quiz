@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { decodeHtml } from "../utils/functions"
 import { createSelector } from "@reduxjs/toolkit"
@@ -28,43 +28,43 @@ const Quizz = () => {
     (data, index) => data[index]
   )
   const quizz = useSelector((state) => selectQuizzItem(state))
-  const [options, setOptions] = useState([])
   const [selectedAnswer, setSelectedAnswer] = useState(null)
 
   const getRandomIndex = (max) => {
     return Math.floor(Math.random() * max)
   }
 
-  useEffect(() => {
-    console.log("useefect")
-    if (!quizz) {
-      return
-    }
-    let answers = [...quizz.incorrect_answers]
+  const selectOptions = createSelector(selectQuizzItem, (item) => {
+    const answers = [...item.incorrect_answers]
     answers.splice(
-      getRandomIndex(quizz.incorrect_answers.length),
+      getRandomIndex(item.incorrect_answers.length),
       0,
-      quizz.correct_answer
+      item.correct_answer
     )
-    setOptions(answers)
-  }, [quizz])
+    return answers
+  })
+
+  const options = useSelector((state) => selectOptions(state))
 
   const handleListItemClick = (event) => {
-    setSelectedAnswer(event.target.textContent)
-    if (event.target.textContent === quizz.correct_answer) {
-      dispatch({
-        type: "SET_SCORE",
-        score: score + 1,
-      })
-    }
-    if (quizzIndex + 1 < quizzSession.length) {
-      setTimeout(() => {
-        setSelectedAnswer(null)
+    if (!selectedAnswer) {
+      setSelectedAnswer(event.target.textContent)
+      if (event.target.textContent === quizz.correct_answer) {
         dispatch({
-          type: "SET_INDEX",
-          index: quizzIndex + 1,
+          type: "SET_SCORE",
+          score: score + 1,
         })
-      }, 2500)
+      }
+      if (quizzIndex + 1 < quizzSession.length) {
+        setTimeout(() => {
+          setSelectedAnswer(null)
+          dispatch({
+            type: "SET_INDEX",
+            index: quizzIndex + 1,
+          })
+          setSelectedAnswer(null)
+        }, 2500)
+      }
     }
   }
 
@@ -79,7 +79,8 @@ const Quizz = () => {
       return `selected`
     }
   }
-  if (!quizz) {
+
+  if (!quizz && !options) {
     return <div>LOADING...</div>
   }
 
