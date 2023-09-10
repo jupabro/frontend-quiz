@@ -1,9 +1,16 @@
-export const submitSelections = (category, difficulty, typeValue, amount) => {
+export const storeSelections = (category, difficulty, typeValue, amount) => {
   return {
-    type: "SUBMIT_SELECTIONS",
+    type: "STORE_SELECTIONS",
     category,
     difficulty,
     typeValue,
     amount,
+  }
+}
+
+export const storeQuizzData = (quizzData) => {
+  return {
+    type: "STORE_QUIZZ_DATA",
+    payload: quizzData,
   }
 }

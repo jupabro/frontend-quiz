@@ -1,1 +1,2 @@
-export * from './selectionActions';
+export * from "./selectionActions"
+export * from "./quizzActions"

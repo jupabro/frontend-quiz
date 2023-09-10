@@ -1,9 +1,10 @@
 import { combineReducers } from "redux"
-import selectionReducer from "./selectionReducer" 
+import selectionReducer from "./selectionReducer"
+import quizzReducer from "./quizzReducer"
 
 const rootReducer = combineReducers({
-  selection: selectionReducer, 
-  // Other reducers if needed
+  selection: selectionReducer,
+  quizz: quizzReducer,
 })
 
 export default rootReducer

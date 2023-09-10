@@ -5,11 +5,12 @@ const initState = {
     typeValue: "",
     amount: 0,
   },
+  quizzData: null,
 }
 
 const SelectionReducer = (state = initState, action) => {
   switch (action.type) {
-    case "SUBMIT_SELECTIONS":
+    case "STORE_SELECTIONS":
       return {
         ...state,
         submittedSelections: {
@@ -18,6 +19,11 @@ const SelectionReducer = (state = initState, action) => {
           typeValue: action.typeValue,
           amount: action.amount,
         },
+      }
+    case "STORE_QUIZZ_DATA":
+      return {
+        ...state,
+        quizzData: action.payload,
       }
     default:
       return state

@@ -3,7 +3,7 @@ import options from "../assets/data/options.json"
 import SearchIcon from "../assets/search.svg"
 import { useDispatch } from "react-redux"
 import { useSelector } from "react-redux"
-import { submitSelections } from "../actions"
+import { storeSelections, storeQuizzData } from "../actions"
 
 const SelectionForm = ({ categories }) => {
   const { difficultyOptions, typeOptions } = options
@@ -11,10 +11,12 @@ const SelectionForm = ({ categories }) => {
 
   const storedSubmittedSelections = useSelector(
     (state) => state.selection.submittedSelections
-  ) // Changed variable name to avoid conflict
+  )
+
+  const storedQuizzData = useSelector((state) => state.selection.quizzData)
 
   const [selections, setselections] = useState({
-    category: "",
+    categoryId: "",
     difficulty: "",
     type: "",
     amount: 10,
@@ -28,13 +30,27 @@ const SelectionForm = ({ categories }) => {
     }))
   }
 
+  const getOptionLabel = (options, value) => {
+    const selectedOption = options.find((option) => option.value === value)
+    return selectedOption ? selectedOption.label : ""
+  }
+
+  const getCategoryName = (categories, categoryId) => {
+    console.log(categories, selections.categoryId)
+    const selectedCategory = categories.find(
+      (category) => category.id === parseInt(categoryId, 10)
+    )
+    return selectedCategory ? selectedCategory.name : "All"
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault()
+    console.log(selections)
 
     let apiUrl = `https://opentdb.com/api.php?amount=${selections.amount}`
 
-    if (selections.category.length) {
-      apiUrl = apiUrl.concat(`&category=${selections.category}`)
+    if (selections.categoryId.length) {
+      apiUrl = apiUrl.concat(`&category=${selections.categoryId}`)
     }
     if (selections.difficulty.length) {
       apiUrl = apiUrl.concat(`&difficulty=${selections.difficulty}`)
@@ -47,11 +63,19 @@ const SelectionForm = ({ categories }) => {
       const data = await response.json()
 
       if (data.results && data.results.length > 0) {
-        const { category, type, difficulty } = data.results[0]
+        const quizzData = data.results
         const amount = data.results.length
-        dispatch(submitSelections(category, difficulty, type, amount))
-        console.log(data.results)
+        dispatch(
+          storeSelections(
+            getCategoryName(categories, selections.categoryId),
+            getOptionLabel(difficultyOptions, selections.difficulty),
+            getOptionLabel(typeOptions, selections.type),
+            amount
+          )
+        )
+        dispatch(storeQuizzData(quizzData))
         console.log("storedSubmittedSelections", storedSubmittedSelections)
+        console.log("storedQuizzData", storedQuizzData)
       } else {
         console.log("No questions found in the response.")
       }
@@ -66,8 +90,8 @@ const SelectionForm = ({ categories }) => {
       <div className='selection-body'>
         <label className='selection-label'>Category:</label>
         <select
-          name='category'
-          value={selections.category}
+          name='categoryId'
+          value={selections.categoryId}
           onChange={handleSelectionChange}
         >
           <option value=''>All</option>
