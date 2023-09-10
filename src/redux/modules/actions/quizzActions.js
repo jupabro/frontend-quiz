@@ -1,3 +1,17 @@
+export const setIndex = (index) => {
+  return {
+    type: "SET_INDEX",
+    payload: index,
+  }
+}
+
+export const setScore = (score) => {
+  return {
+    type: "SET_SCORE",
+    payload: score,
+  }
+}
+
 export const storeSelections = (category, difficulty, typeValue, amount) => {
   return {
     type: "STORE_SELECTIONS",

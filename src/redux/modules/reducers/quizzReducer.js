@@ -6,6 +6,8 @@ const initState = {
     amount: 0,
   },
   quizzData: null,
+  index: 0,
+  score: 0,
 }
 
 const SelectionReducer = (state = initState, action) => {
@@ -24,6 +26,17 @@ const SelectionReducer = (state = initState, action) => {
       return {
         ...state,
         quizzData: action.payload,
+      }
+    case "SET_INDEX":
+      return {
+        ...state,
+        index: action.index,
+      }
+
+    case "SET_SCORE":
+      return {
+        ...state,
+        score: action.score,
       }
     default:
       return state

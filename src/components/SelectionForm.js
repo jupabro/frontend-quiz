@@ -2,9 +2,8 @@ import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import options from "../assets/data/options.json"
 import SearchIcon from "../assets/search.svg"
-import { useDispatch } from "react-redux"
-import { useSelector } from "react-redux"
-import { storeSelections, storeQuizzData } from "../actions"
+import { useDispatch, useSelector } from "react-redux"
+import { storeSelections, storeQuizzData } from "../redux/modules/actions"
 
 const SelectionForm = ({ categories }) => {
   const { difficultyOptions, typeOptions } = options
@@ -12,10 +11,10 @@ const SelectionForm = ({ categories }) => {
   const navigate = useNavigate()
 
   const storedSubmittedSelections = useSelector(
-    (state) => state.selection.submittedSelections
+    (state) => state.quizz.submittedSelections
   )
 
-  const storedQuizzData = useSelector((state) => state.selection.quizzData)
+  const storedQuizzData = useSelector((state) => state.quizz.quizzData)
 
   const [selections, setselections] = useState({
     categoryId: "",

@@ -1,12 +1,12 @@
 import React, { useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { decodeHtml } from "../utils/functions"
+import { decodeHtml, getRandomIndex } from "../utils/functions"
 import { createSelector } from "@reduxjs/toolkit"
 
 const Quizz = () => {
   const dispatch = useDispatch()
 
-  const storedQuizzData = (state) => state.selection.quizzData
+  const storedQuizzData = (state) => state.quizz.quizzData
   const selectQuizzIndex = (state) => state.quizz.index
 
   const decodeQuizzData = createSelector(storedQuizzData, (quizzData) =>
@@ -29,10 +29,6 @@ const Quizz = () => {
   )
   const quizz = useSelector((state) => selectQuizzItem(state))
   const [selectedAnswer, setSelectedAnswer] = useState(null)
-
-  const getRandomIndex = (max) => {
-    return Math.floor(Math.random() * max)
-  }
 
   const selectOptions = createSelector(selectQuizzItem, (item) => {
     const answers = [...item.incorrect_answers]
