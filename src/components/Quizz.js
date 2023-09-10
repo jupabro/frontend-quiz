@@ -1,46 +1,21 @@
 import React, { useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { decodeHtml, getRandomIndex } from "../utils/functions"
-import { createSelector } from "@reduxjs/toolkit"
+import {
+  selectDecodedQuizzData,
+  selectCurrentQuizz,
+  selectQuizzOptions,
+} from "../redux/selectors/quizzSelectors"
 
 const Quizz = () => {
   const dispatch = useDispatch()
 
-  const storedQuizzData = (state) => state.quizz.quizzData
-  const selectQuizzIndex = (state) => state.quizz.index
-
-  const decodeQuizzData = createSelector(storedQuizzData, (quizzData) =>
-    quizzData.map((q) => ({
-      ...q,
-      question: decodeHtml(q.question),
-      correct_answer: decodeHtml(q.correct_answer),
-      incorrect_answers: q.incorrect_answers.map((a) => decodeHtml(a)),
-    }))
-  )
+  const [selectedAnswer, setSelectedAnswer] = useState(null)
 
   const score = useSelector((state) => state.quizz.score)
   const quizzIndex = useSelector((state) => state.quizz.index)
-  const quizzSession = useSelector((state) => decodeQuizzData(state))
-
-  const selectQuizzItem = createSelector(
-    decodeQuizzData,
-    selectQuizzIndex,
-    (data, index) => data[index]
-  )
-  const quizz = useSelector((state) => selectQuizzItem(state))
-  const [selectedAnswer, setSelectedAnswer] = useState(null)
-
-  const selectOptions = createSelector(selectQuizzItem, (item) => {
-    const answers = [...item.incorrect_answers]
-    answers.splice(
-      getRandomIndex(item.incorrect_answers.length),
-      0,
-      item.correct_answer
-    )
-    return answers
-  })
-
-  const options = useSelector((state) => selectOptions(state))
+  const quizzSession = useSelector((state) => selectDecodedQuizzData(state))
+  const quizz = useSelector((state) => selectCurrentQuizz(state))
+  const options = useSelector((state) => selectQuizzOptions(state))
 
   const handleListItemClick = (event) => {
     if (!selectedAnswer) {

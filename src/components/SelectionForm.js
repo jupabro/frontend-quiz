@@ -4,6 +4,7 @@ import options from "../assets/data/options.json"
 import SearchIcon from "../assets/search.svg"
 import { useDispatch, useSelector } from "react-redux"
 import { storeSelections, storeQuizzData } from "../redux/modules/actions"
+import { getOptionLabel, getCategoryName } from "../utils/functions"
 
 const SelectionForm = ({ categories }) => {
   const { difficultyOptions, typeOptions } = options
@@ -29,19 +30,6 @@ const SelectionForm = ({ categories }) => {
       ...prevselections,
       [name]: value,
     }))
-  }
-
-  const getOptionLabel = (options, value) => {
-    const selectedOption = options.find((option) => option.value === value)
-    return selectedOption ? selectedOption.label : ""
-  }
-
-  const getCategoryName = (categories, categoryId) => {
-    console.log(categories, selections.categoryId)
-    const selectedCategory = categories.find(
-      (category) => category.id === parseInt(categoryId, 10)
-    )
-    return selectedCategory ? selectedCategory.name : "All"
   }
 
   const handleSubmit = async (event) => {
