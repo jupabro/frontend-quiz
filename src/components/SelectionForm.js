@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import options from "../assets/data/options.json"
 import SearchIcon from "../assets/search.svg"
 import { useDispatch } from "react-redux"
@@ -8,6 +9,7 @@ import { storeSelections, storeQuizzData } from "../actions"
 const SelectionForm = ({ categories }) => {
   const { difficultyOptions, typeOptions } = options
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const storedSubmittedSelections = useSelector(
     (state) => state.selection.submittedSelections
@@ -76,6 +78,10 @@ const SelectionForm = ({ categories }) => {
         dispatch(storeQuizzData(quizzData))
         console.log("storedSubmittedSelections", storedSubmittedSelections)
         console.log("storedQuizzData", storedQuizzData)
+
+        if (storedQuizzData) {
+          navigate("/quizz")
+        }
       } else {
         console.log("No questions found in the response.")
       }
