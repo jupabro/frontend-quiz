@@ -16,7 +16,7 @@ const SelectionPage = () => {
   }, [setCategories])
 
   return (
-    <div className='selection-container'>
+    <div className='page-content-container'>
       {!isLoading ? (
         <SelectionForm categories={categories} />
       ) : (

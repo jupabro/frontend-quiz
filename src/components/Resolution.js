@@ -12,6 +12,7 @@ import { fetchQuizData } from "../services/apiService"
 
 const Resolution = () => {
   const score = useSelector((state) => state.quizz.score)
+
   const storedSubmittedSelections = useSelector(
     (state) => state.quizz.submittedSelections
   )
@@ -47,13 +48,18 @@ const Resolution = () => {
   }
 
   return (
-    <div>
-      <h3>Final Score: {score}</h3>
-      <button onClick={replay}>Play again!</button>
-      <button onClick={fetch}>
-        Play again with new questions, same settings
-      </button>
-      <button onClick={settings}>Back to settings</button>
+    <div className='selection-form'>
+      <h2 className='selection-title'>Quizz-session completed</h2>
+      <h3 className='selection-question'>
+        Final Score: {score} / {storedSubmittedSelections.amount}
+      </h3>
+      <div className='selection-body'>
+        <button className='selection-question' onClick={replay}>
+          Repeat the session!
+        </button>
+        <button onClick={fetch}>Repeat: new questions, same setting!</button>
+        <button onClick={settings}>Go to settings</button>
+      </div>
     </div>
   )
 }
