@@ -28,3 +28,10 @@ export const storeQuizzData = (quizzData) => {
     payload: quizzData,
   }
 }
+
+export const setCompleted = (boolean) => {
+  return {
+    type: "COMPLETED",
+    payload: boolean,
+  }
+}

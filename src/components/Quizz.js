@@ -1,19 +1,19 @@
 import React, { useState } from "react"
-import { useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import {
   selectDecodedQuizzData,
   selectCurrentQuizz,
   selectQuizzOptions,
 } from "../redux/selectors/quizzSelectors"
+import { setCompleted } from "../redux/modules/actions"
+import Resolution from "./Resolution"
 
 const Quizz = () => {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
 
-  const [quizCompleted, setQuizCompleted] = useState(false)
   const [selectedAnswer, setSelectedAnswer] = useState(null)
 
+  const isCompleted = useSelector((state) => state.quizz.completed)
   const score = useSelector((state) => state.quizz.score)
   const quizzIndex = useSelector((state) => state.quizz.index)
   const quizzSession = useSelector((state) => selectDecodedQuizzData(state))
@@ -39,7 +39,7 @@ const Quizz = () => {
         }, 2500)
       } else {
         setTimeout(() => {
-          setQuizCompleted(true)
+          dispatch(setCompleted(true))
         }, 2500)
       }
     }
@@ -63,12 +63,10 @@ const Quizz = () => {
 
   return (
     <div>
-      {quizCompleted ? (
+      {isCompleted ? (
         <div>
           <p>Quiz Completed</p>
-          <button onClick={() => navigate("/resolution")}>
-            View Resolution
-          </button>
+          <Resolution />
         </div>
       ) : (
         <div>

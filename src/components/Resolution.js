@@ -20,9 +20,9 @@ const Resolution = () => {
     dispatch(setIndex(0))
   }, [dispatch])
 
-  useEffect(() => {
-    navigate("/")
-  }, [settings, navigate])
+  //   useEffect(() => {
+  //     navigate("/")
+  //   }, [settings, navigate])
 
   return (
     <div>
