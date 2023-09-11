@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import options from "../assets/data/options.json"
 import SearchIcon from "../assets/search.svg"
+import { fetchQuizData } from "../services/apiService"
 import { useDispatch, useSelector } from "react-redux"
 import { storeSelections, storeQuizzData } from "../redux/modules/actions"
 import { getOptionLabel, getCategoryName } from "../utils/functions"
@@ -20,8 +21,10 @@ const SelectionForm = ({ categories }) => {
   useEffect(() => {
     if (storedQuizzData) {
       navigate("/quizz")
+      console.log("storedSubmittedSelections", storedSubmittedSelections)
+      console.log("storedQuizzData", storedQuizzData)
     }
-  }, [storedQuizzData, navigate])
+  }, [storedQuizzData, storedSubmittedSelections, navigate])
 
   const [selections, setselections] = useState({
     categoryId: "",
@@ -40,45 +43,20 @@ const SelectionForm = ({ categories }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-
-    let apiUrl = `https://opentdb.com/api.php?amount=${selections.amount}`
-
-    if (selections.categoryId.length) {
-      apiUrl = apiUrl.concat(`&category=${selections.categoryId}`)
-    }
-    if (selections.difficulty.length) {
-      apiUrl = apiUrl.concat(`&difficulty=${selections.difficulty}`)
-    }
-    if (selections.type.length) {
-      apiUrl = apiUrl.concat(`&type=${selections.type}`)
-    }
     try {
-      const response = await fetch(apiUrl)
-      const data = await response.json()
-
-      if (data.results && data.results.length > 0) {
-        const quizzData = data.results
-        const amount = data.results.length
-        dispatch(
-          storeSelections(
-            getCategoryName(categories, selections.categoryId),
-            getOptionLabel(difficultyOptions, selections.difficulty),
-            getOptionLabel(typeOptions, selections.type),
-            amount
-          )
+      const quizzData = await fetchQuizData(selections)
+      const amount = quizzData.length
+      dispatch(
+        storeSelections(
+          getCategoryName(categories, selections.categoryId),
+          getOptionLabel(difficultyOptions, selections.difficulty),
+          getOptionLabel(typeOptions, selections.type),
+          amount
         )
-        dispatch(storeQuizzData(quizzData))
-        console.log("storedSubmittedSelections", storedSubmittedSelections)
-        console.log("storedQuizzData", storedQuizzData)
-
-        // if (storedQuizzData) {
-        //   navigate("/quizz")
-        // }
-      } else {
-        console.log("No questions found in the response.")
-      }
+      )
+      dispatch(storeQuizzData(quizzData))
     } catch (error) {
-      console.error("An error occurred while fetching the data:", error)
+      console.error(error)
     }
   }
 
