@@ -15,7 +15,6 @@ const Quizz = () => {
 
   const isCompleted = useSelector((state) => state.quizz.completed)
   const score = useSelector((state) => state.quizz.score)
-  console.log("score", score)
   const quizzIndex = useSelector((state) => state.quizz.index)
   const quizzSession = useSelector((state) => selectDecodedQuizzData(state))
   const quizz = useSelector((state) => selectCurrentQuizz(state))

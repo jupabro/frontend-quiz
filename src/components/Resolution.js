@@ -1,23 +1,50 @@
-import React, { useCallback } from "react"
+import React from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { setScore, setIndex, setCompleted } from "../redux/modules/actions"
+import {
+  setScore,
+  setIndex,
+  setCompleted,
+  storeSelections,
+  storeQuizzData,
+} from "../redux/modules/actions"
+import { useNavigate } from "react-router-dom"
+import { fetchQuizData } from "../services/apiService"
 
 const Resolution = () => {
   const score = useSelector((state) => state.quizz.score)
+  const storedSubmittedSelections = useSelector(
+    (state) => state.quizz.submittedSelections
+  )
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const replay = () => {
     dispatch(setScore(0))
     dispatch(setIndex(0))
     dispatch(setCompleted(false))
   }
-  const fetch = () => {
-    console.log("fetch")
-  }
-  const settings = useCallback(() => {
+
+  const fetch = async () => {
+    console.log("fetching", storedSubmittedSelections)
+    try {
+      const quizzData = await fetchQuizData(storedSubmittedSelections)
+      dispatch(storeQuizzData(quizzData))
+    } catch (error) {
+      console.error(error)
+    }
     dispatch(setScore(0))
     dispatch(setIndex(0))
-  }, [dispatch])
+    dispatch(setCompleted(false))
+  }
+
+  const settings = () => {
+    dispatch(storeQuizzData(null))
+    dispatch(storeSelections(null))
+    dispatch(setCompleted(false))
+    dispatch(setScore(0))
+    dispatch(setIndex(0))
+    navigate("/")
+  }
 
   return (
     <div>

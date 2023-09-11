@@ -5,7 +5,6 @@ import SearchIcon from "../assets/search.svg"
 import { fetchQuizData } from "../services/apiService"
 import { useDispatch, useSelector } from "react-redux"
 import { storeSelections, storeQuizzData } from "../redux/modules/actions"
-import { getOptionLabel, getCategoryName } from "../utils/functions"
 
 const SelectionForm = ({ categories }) => {
   const { difficultyOptions, typeOptions } = options
@@ -45,15 +44,8 @@ const SelectionForm = ({ categories }) => {
     event.preventDefault()
     try {
       const quizzData = await fetchQuizData(selections)
-      const amount = quizzData.length
-      dispatch(
-        storeSelections(
-          getCategoryName(categories, selections.categoryId),
-          getOptionLabel(difficultyOptions, selections.difficulty),
-          getOptionLabel(typeOptions, selections.type),
-          amount
-        )
-      )
+      // const amount = quizzData.length
+      dispatch(storeSelections(selections))
       dispatch(storeQuizzData(quizzData))
     } catch (error) {
       console.error(error)

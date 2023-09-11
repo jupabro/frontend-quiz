@@ -1,4 +1,5 @@
 export async function fetchQuizData(selections) {
+  console.log("api selections", selections)
 
   let apiUrl = `https://opentdb.com/api.php?amount=${selections.amount}`
 

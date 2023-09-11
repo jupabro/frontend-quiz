@@ -1,10 +1,5 @@
 const initState = {
-  submittedSelections: {
-    category: "",
-    difficulty: "",
-    typeValue: "",
-    amount: 0,
-  },
+  submittedSelections: null,
   quizzData: null,
   index: 0,
   score: 0,
@@ -16,12 +11,7 @@ const SelectionReducer = (state = initState, action) => {
     case "STORE_SELECTIONS":
       return {
         ...state,
-        submittedSelections: {
-          category: action.category,
-          difficulty: action.difficulty,
-          typeValue: action.typeValue,
-          amount: action.amount,
-        },
+        submittedSelections: action.payload,
       }
     case "STORE_QUIZZ_DATA":
       return {

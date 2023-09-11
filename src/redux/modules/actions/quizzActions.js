@@ -12,13 +12,10 @@ export const setScore = (score) => {
   }
 }
 
-export const storeSelections = (category, difficulty, typeValue, amount) => {
+export const storeSelections = (selections) => {
   return {
     type: "STORE_SELECTIONS",
-    category,
-    difficulty,
-    typeValue,
-    amount,
+    payload: selections,
   }
 }
 
