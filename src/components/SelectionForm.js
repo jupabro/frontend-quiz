@@ -19,11 +19,16 @@ const SelectionForm = ({ categories }) => {
 
   useEffect(() => {
     if (storedQuizzData) {
-      navigate("/quizz")
+      const data = {
+        categories,
+        difficultyOptions,
+        typeOptions,
+      }
+      navigate("/quizz", { state: data })
       console.log("storedSubmittedSelections", storedSubmittedSelections)
       console.log("storedQuizzData", storedQuizzData)
     }
-  }, [storedQuizzData, storedSubmittedSelections, navigate])
+  }, [storedQuizzData, storedSubmittedSelections, navigate, categories])
 
   const [selections, setselections] = useState({
     categoryId: "",

@@ -127,6 +127,14 @@ header {
   margin-bottom: 0.5rem;
 }
 
+.selection-description {
+  font-size: 0rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 @media screen and (max-height: 800px) {
   .selection-body {
     gap: 0.25rem;
@@ -136,6 +144,9 @@ header {
   }
   .selection-label {
     font-size: 0.8rem;
+  }
+  .selection-description {
+    font-size: 0.6rem;
   }
 }
 
@@ -175,8 +186,12 @@ header {
   transition: transform 0.2s ease-in-out;
 }
 
-.selection-form span:first-child {
+.selection-label span {
   margin-right: 10px;
+  margin-bottom: 5px;
+}
+.selection-label span:last-child {
+  margin-right: 0;
 }
 
 .selection-form ul {
@@ -249,5 +264,18 @@ li.selected:not(correct) {
   }
   .selection-form {
     width: 95%;
+  }
+}
+
+@media screen and (max-width: 250px) {
+  .app-title {
+    font-size: 1.8rem;
+    letter-spacing: 0.3rem;
+  }
+  .selection-form {
+    width: 98%;
+  }
+  :root {
+    font-size: small;
   }
 }
