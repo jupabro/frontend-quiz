@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import options from "../assets/data/options.json"
 import SearchIcon from "../assets/search.svg"
@@ -17,6 +17,12 @@ const SelectionForm = ({ categories }) => {
 
   const storedQuizzData = useSelector((state) => state.quizz.quizzData)
 
+  useEffect(() => {
+    if (storedQuizzData) {
+      navigate("/quizz")
+    }
+  }, [storedQuizzData, navigate])
+
   const [selections, setselections] = useState({
     categoryId: "",
     difficulty: "",
@@ -34,7 +40,6 @@ const SelectionForm = ({ categories }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    console.log(selections)
 
     let apiUrl = `https://opentdb.com/api.php?amount=${selections.amount}`
 
@@ -66,9 +71,9 @@ const SelectionForm = ({ categories }) => {
         console.log("storedSubmittedSelections", storedSubmittedSelections)
         console.log("storedQuizzData", storedQuizzData)
 
-        if (storedQuizzData) {
-          navigate("/quizz")
-        }
+        // if (storedQuizzData) {
+        //   navigate("/quizz")
+        // }
       } else {
         console.log("No questions found in the response.")
       }
