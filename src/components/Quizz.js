@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import {
   selectDecodedQuizzData,
@@ -8,7 +9,9 @@ import {
 
 const Quizz = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
+  const [quizCompleted, setQuizCompleted] = useState(false)
   const [selectedAnswer, setSelectedAnswer] = useState(null)
 
   const score = useSelector((state) => state.quizz.score)
@@ -33,7 +36,10 @@ const Quizz = () => {
             type: "SET_INDEX",
             index: quizzIndex + 1,
           })
-          setSelectedAnswer(null)
+        }, 2500)
+      } else {
+        setTimeout(() => {
+          setQuizCompleted(true)
         }, 2500)
       }
     }
@@ -57,22 +63,33 @@ const Quizz = () => {
 
   return (
     <div>
-      <p>Question {quizzIndex + 1}</p>
-      <h3>{quizz.question}</h3>
-      <ul>
-        {options.map((option, i) => (
-          <li
-            key={i}
-            onClick={handleListItemClick}
-            className={getClass(option)}
-          >
-            {option}
-          </li>
-        ))}
-      </ul>
-      <div>
-        Score: {score} / {quizzSession.length}
-      </div>
+      {quizCompleted ? (
+        <div>
+          <p>Quiz Completed</p>
+          <button onClick={() => navigate("/resolution")}>
+            View Resolution
+          </button>
+        </div>
+      ) : (
+        <div>
+          <p>Question {quizzIndex + 1}</p>
+          <h3>{quizz.question}</h3>
+          <ul>
+            {options.map((option, i) => (
+              <li
+                key={i}
+                onClick={handleListItemClick}
+                className={getClass(option)}
+              >
+                {option}
+              </li>
+            ))}
+          </ul>
+          <div>
+            Score: {score} / {quizzSession.length}
+          </div>
+        </div>
+      )}
     </div>
   )
 }
