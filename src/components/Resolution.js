@@ -1,16 +1,15 @@
-import React, { useEffect, useCallback } from "react"
-import { useNavigate } from "react-router-dom"
+import React, { useCallback } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { setScore, setIndex } from "../redux/modules/actions"
+import { setScore, setIndex, setCompleted } from "../redux/modules/actions"
 
 const Resolution = () => {
   const score = useSelector((state) => state.quizz.score)
   const dispatch = useDispatch()
-  const navigate = useNavigate()
 
   const replay = () => {
     dispatch(setScore(0))
     dispatch(setIndex(0))
+    dispatch(setCompleted(false))
   }
   const fetch = () => {
     console.log("fetch")
@@ -19,10 +18,6 @@ const Resolution = () => {
     dispatch(setScore(0))
     dispatch(setIndex(0))
   }, [dispatch])
-
-  //   useEffect(() => {
-  //     navigate("/")
-  //   }, [settings, navigate])
 
   return (
     <div>

@@ -31,12 +31,12 @@ const SelectionReducer = (state = initState, action) => {
     case "SET_INDEX":
       return {
         ...state,
-        index: action.index,
+        index: action.payload,
       }
     case "SET_SCORE":
       return {
         ...state,
-        score: action.score,
+        score: action.payload,
       }
     case "COMPLETED":
       return {

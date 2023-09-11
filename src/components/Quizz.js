@@ -5,7 +5,7 @@ import {
   selectCurrentQuizz,
   selectQuizzOptions,
 } from "../redux/selectors/quizzSelectors"
-import { setCompleted } from "../redux/modules/actions"
+import { setCompleted, setIndex, setScore } from "../redux/modules/actions"
 import Resolution from "./Resolution"
 
 const Quizz = () => {
@@ -15,6 +15,7 @@ const Quizz = () => {
 
   const isCompleted = useSelector((state) => state.quizz.completed)
   const score = useSelector((state) => state.quizz.score)
+  console.log("score", score)
   const quizzIndex = useSelector((state) => state.quizz.index)
   const quizzSession = useSelector((state) => selectDecodedQuizzData(state))
   const quizz = useSelector((state) => selectCurrentQuizz(state))
@@ -24,21 +25,16 @@ const Quizz = () => {
     if (!selectedAnswer) {
       setSelectedAnswer(event.target.textContent)
       if (event.target.textContent === quizz.correct_answer) {
-        dispatch({
-          type: "SET_SCORE",
-          score: score + 1,
-        })
+        dispatch(setScore(score + 1))
       }
       if (quizzIndex + 1 < quizzSession.length) {
         setTimeout(() => {
           setSelectedAnswer(null)
-          dispatch({
-            type: "SET_INDEX",
-            index: quizzIndex + 1,
-          })
+          dispatch(setIndex(quizzIndex + 1))
         }, 2500)
       } else {
         setTimeout(() => {
+          setSelectedAnswer(null)
           dispatch(setCompleted(true))
         }, 2500)
       }
