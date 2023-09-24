@@ -2,13 +2,15 @@
   width: var(--sidebar-width);
   color: var(--secondary-text-color);
   background-color: var(--input-shadow-light);
-  min-width: 100px;
+  min-width: 70px;
   max-width: 400px;
+  container-type: inline-size; /* width */
+  container-type: size; /* height  */
+  container-name: sidebar;
 }
 
 .resizer {
-  width: 1px;
-  background-color: var(--input-background);
+  width: 3px;
   cursor: col-resize;
   resize: horizontal;
 }

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react"
 import SelectionForm from "../components/SelectionForm"
+import Icon from "@mdi/react"
+import { mdiLoading } from "@mdi/js"
 
 const SelectionPage = () => {
   const [categories, setCategories] = useState([])
@@ -20,7 +22,7 @@ const SelectionPage = () => {
       {!isLoading ? (
         <SelectionForm categories={categories} />
       ) : (
-        <p className='loading'>LOADING...</p>
+        <Icon className='spinner' path={mdiLoading} size={3} spin={1} />
       )}
     </div>
   )

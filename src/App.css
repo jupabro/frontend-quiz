@@ -16,6 +16,7 @@
   --error-color: rgb(119, 33, 57);
   --error--opac-color: rgba(119, 33, 57, 0.5);
   --info-color: rgb(249, 211, 180);
+  --info--opac-color: rgba(249, 211, 180, 0.05);
 
   --primary-text-color: rgb(249, 211, 180);
   --secondary-text-color: rgb(161, 161, 161);
@@ -52,7 +53,7 @@ body {
   padding: 1rem;
   overflow-y: auto;
   flex-direction: column;
-  container-type: inline-size; /* widht */
+  container-type: inline-size; /* width */
   container-type: size; /* height  */
   container-name: main;
   padding-bottom: 60px; /* Height of the footer */
@@ -157,9 +158,12 @@ header {
 }
 
 .loading {
-  font-size: 1.25rem;
+  height: 50px;
   color: var(--primary-text-color);
   font-family: var(--font-raleway);
+}
+.spinner{
+  color: var(--secondary-text-color);
 }
 
 .search-button {
