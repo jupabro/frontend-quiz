@@ -28,7 +28,14 @@ const SelectionForm = ({ categories }) => {
       console.log("storedSubmittedSelections", storedSubmittedSelections)
       console.log("storedQuizzData", storedQuizzData)
     }
-  }, [storedQuizzData, storedSubmittedSelections, navigate, categories])
+  }, [
+    storedQuizzData,
+    storedSubmittedSelections,
+    navigate,
+    categories,
+    difficultyOptions,
+    typeOptions,
+  ])
 
   const [selections, setselections] = useState({
     categoryId: "",

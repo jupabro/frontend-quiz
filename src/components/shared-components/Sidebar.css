@@ -1,0 +1,23 @@
+.sidebar {
+  width: var(--sidebar-width);
+  color: var(--secondary-text-color);
+  background-color: var(--input-shadow-light);
+  min-width: 100px;
+  max-width: 400px;
+}
+
+.resizer {
+  width: 1px;
+  background-color: var(--input-background);
+  cursor: col-resize;
+  resize: horizontal;
+}
+
+.resizer:hover {
+  width: 3px;
+  background: var(--input-background);
+}
+
+.resizing {
+  user-select: none; /*disables text selection and interaction within element */
+}

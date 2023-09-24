@@ -77,13 +77,12 @@ const QuizzCard = () => {
   return (
     <div className='selection-form'>
       <h3 className='selection-question'>{quizz.question}</h3>
-
+      <div className='selection-label selection-description'>
+        <span>Category: {categoryName}</span>
+        <span>Difficulty: {difficultyOption}</span>
+        <span>Type: {typeOption}</span>
+      </div>
       <ul className='selection-body'>
-        <div className='selection-label selection-description'>
-          <span>Category: {categoryName}</span>
-          <span>Difficulty: {difficultyOption}</span>
-          <span>Type: {typeOption}</span>
-        </div>
         {options.map((option, i) => (
           <li
             key={i}

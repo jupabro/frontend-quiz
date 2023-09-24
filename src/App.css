@@ -15,17 +15,18 @@
   --approve--opac-color: rgba(27, 156, 76, 0.7);
   --error-color: rgb(119, 33, 57);
   --error--opac-color: rgba(119, 33, 57, 0.5);
-  --info-color: #f9d3b4;
+  --info-color: rgb(249, 211, 180);
 
-  --primary-text-color: #f9d3b4;
-  --background-color-dark: #212426;
-  --background-color-light: #f9d3b4;
+  --primary-text-color: rgb(249, 211, 180);
+  --secondary-text-color: rgb(161, 161, 161);
+  --background-color-dark: rgb(33, 36, 38);
+  --background-color-dark-opac: rgba(33, 36, 38, 0.9);
   --title-background-start: rgba(249, 211, 180, 1);
   --title-background-end: rgba(249, 211, 180, 0);
 
-  --input-background: #1f2123;
-  --input-shadow-dark: #1c1d1f;
-  --input-shadow-light: #222527;
+  --input-background: rgb(55, 59, 63);
+  --input-shadow-dark: rgb(28, 29, 31);
+  --input-shadow-light: rgb(38, 41, 43);
   --input-hover-scale: 1.02;
   --button-hover-scale: 1.05;
 }
@@ -36,10 +37,30 @@ body {
 }
 
 .app-container {
-  width: 100vw;
+  display: grid;
+  grid-template-columns: auto 1fr; /* sidebar and main  */
+  grid-template-rows: 1fr;
+  grid-template-areas: "sidebar main";
   min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.app-main {
+  grid-area: main;
   display: flex;
+  padding: 1rem;
+  overflow-y: auto;
   flex-direction: column;
+  container-type: inline-size; /* widht */
+  container-type: size; /* height  */
+  container-name: main;
+  padding-bottom: 60px; /* Height of the footer */
+}
+
+.app-sidebar {
+  grid-area: sidebar;
+  display: flex;
 }
 
 header {
@@ -75,7 +96,6 @@ header {
 .page-content-container {
   width: 100%;
   flex-grow: 1;
-  overflow-y: auto;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -99,6 +119,7 @@ header {
   margin-bottom: 0.5rem;
   text-align: center;
   margin: 0 auto;
+  margin-bottom: 2rem;
 }
 
 .selection-question {
@@ -128,26 +149,11 @@ header {
 }
 
 .selection-description {
-  font-size: 0rem;
+  font-size: 0.7rem;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-}
-
-@media screen and (max-height: 800px) {
-  .selection-body {
-    gap: 0.25rem;
-  }
-  .selection-form {
-    gap: 1rem;
-  }
-  .selection-label {
-    font-size: 0.8rem;
-  }
-  .selection-description {
-    font-size: 0.6rem;
-  }
 }
 
 .loading {
@@ -167,7 +173,8 @@ header {
 .selection-body select,
 .selection-body input,
 .selection-body li,
-.selection-body button {
+.selection-body button,
+.app-footer {
   width: 100%;
   text-align: center;
   border: none;
@@ -176,14 +183,24 @@ header {
   font-weight: 500;
 
   outline: none;
-  color: #a1a1a1;
-  background: #1f2123;
+  color: var(--secondary-text-color);
+  background: var(--background-color-dark);
 
   -webkit-box-shadow: 5px 5px 7px var(--input-shadow-dark),
     -5px -5px 7px var(--input-shadow-light);
   box-shadow: 5px 5px 7px var(--input-shadow-dark),
     -5px -5px 7px var(--input-shadow-light);
   transition: transform 0.2s ease-in-out;
+}
+
+.app-footer {
+  padding: 20px;
+  background: var(--background-color-dark-opac);
+  position: fixed;
+  bottom: 0;
+  right: auto;
+  width: 100%;
+  margin-bottom: 0.4rem;
 }
 
 .selection-label span {
@@ -247,7 +264,26 @@ li.selected:not(correct) {
   color: var(--primary-text-color);
 }
 
-@media screen and (max-width: 600px) {
+@container main (max-height: 800px) {
+  .selection-body {
+    gap: 0.25rem;
+  }
+  .selection-form {
+    gap: 1rem;
+  }
+  .selection-label {
+    font-size: 0.8rem;
+  }
+  .selection-description {
+    font-size: 0.6rem;
+  }
+}
+
+@container main (max-width: 800px) {
+  .app-title {
+    font-size: 2.5rem;
+    letter-spacing: 0.7rem;
+  }
   .search-button img {
     width: 20px;
     height: 20px;
@@ -257,17 +293,17 @@ li.selected:not(correct) {
   }
 }
 
-@media screen and (max-width: 400px) {
+@container main (max-width: 500px) {
   .app-title {
     font-size: 2rem;
     letter-spacing: 0.5rem;
   }
   .selection-form {
-    width: 95%;
+    width: 82%;
   }
 }
 
-@media screen and (max-width: 250px) {
+@container main (max-width: 250px) {
   .app-title {
     font-size: 1.8rem;
     letter-spacing: 0.3rem;
