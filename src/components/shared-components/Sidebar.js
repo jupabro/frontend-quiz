@@ -7,6 +7,8 @@ function Sidebar() {
   const sidebarRef = useRef(null)
   const [isResizing, setIsResizing] = useState(false)
   const [sidebarWidth, setSidebarWidth] = useState(260)
+  const minResizeWidth = 170
+  const shrinkWidth = 70
 
   const startResizing = useCallback(() => {
     setIsResizing(true)
@@ -19,10 +21,19 @@ function Sidebar() {
   const resize = useCallback(
     (mouseMoveEvent) => {
       if (isResizing) {
-        setSidebarWidth(
+        const newWidth =
           mouseMoveEvent.clientX -
-            sidebarRef.current.getBoundingClientRect().left
-        )
+          sidebarRef.current.getBoundingClientRect().left
+
+        const widthChange = newWidth - sidebarWidth
+
+        if (widthChange < 0 && newWidth < minResizeWidth) {
+          // if movement is from right to left, shrink
+          setSidebarWidth(shrinkWidth)
+        } else if (widthChange > 0 && newWidth < minResizeWidth) {
+          // if movement is from left to right, grow slightly over the threshold
+          setSidebarWidth(minResizeWidth + 1)
+        } else setSidebarWidth(newWidth)
       }
     },
     [isResizing]
