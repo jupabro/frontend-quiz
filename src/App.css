@@ -40,8 +40,10 @@ body {
 .app-container {
   display: grid;
   grid-template-columns: auto 1fr; /* sidebar and main  */
-  grid-template-rows: 1fr;
-  grid-template-areas: "sidebar main";
+  grid-template-rows: 1fr auto;
+  grid-template-areas:
+    "sidebar main"
+    "sidebar footer";
   min-height: 100vh;
   margin: 0;
   padding: 0;
@@ -49,14 +51,12 @@ body {
 
 .app-main {
   grid-area: main;
-  display: flex;
-  padding: 1rem;
   overflow-y: auto;
+  display: flex;
   flex-direction: column;
   container-type: inline-size; /* width */
   container-type: size; /* height  */
   container-name: main;
-  padding-bottom: 60px; /* Height of the footer */
 }
 
 .app-sidebar {
@@ -162,7 +162,7 @@ header {
   color: var(--primary-text-color);
   font-family: var(--font-raleway);
 }
-.spinner{
+.spinner {
   color: var(--secondary-text-color);
 }
 
@@ -198,13 +198,13 @@ header {
 }
 
 .app-footer {
+  grid-area: footer;
   padding: 20px;
   background: var(--background-color-dark-opac);
-  position: fixed;
-  bottom: 0;
-  right: auto;
   width: 100%;
+  margin-top: auto;
   margin-bottom: 0.4rem;
+  z-index: 1;
 }
 
 .selection-label span {

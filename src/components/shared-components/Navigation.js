@@ -1,5 +1,7 @@
 import React from "react"
 import "./Navigation.css"
+import { useDispatch } from "react-redux"
+import { openLoginForm } from "../../redux/modules/actions/loginformActions"
 import Icon from "@mdi/react"
 import {
   mdilLightbulb,
@@ -11,19 +13,13 @@ import {
   mdilFolder,
 } from "@mdi/light-js"
 
-{
-  /* <Icon path={mdilAccount} size={1} /> */
-}
-
-{
-  /* <Icon path={mdilMenu} size={1} /> */
-}
-
-{
-  /* <Icon path={mdilLogout} size={1} /> */
-}
-
 const Navigation = () => {
+  const dispatch = useDispatch()
+
+  const handleOpenLoginForm = () => {
+    console.log("open loginform")
+    dispatch(openLoginForm())
+  }
   return (
     <div className='nav'>
       <ul className='nav-list'>
@@ -55,7 +51,9 @@ const Navigation = () => {
       <ul className='nav-login'>
         <li>
           <Icon path={mdilLogin} size={1} />
-          <a href='#'>Login</a>{" "}
+          <a href='#' onClick={handleOpenLoginForm}>
+            Login
+          </a>{" "}
         </li>
       </ul>
     </div>
