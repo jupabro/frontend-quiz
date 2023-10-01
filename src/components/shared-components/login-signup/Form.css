@@ -1,0 +1,113 @@
+form {
+  font-family: var(--font-raleway);
+  overflow: hidden;
+  padding: 40px 25px;
+  color: var(--primary-text-color);
+  text-shadow: 0 0 2px rgba(0, 0, 0, 1);
+}
+
+form fieldset {
+  position: relative;
+  opacity: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  transition: all 0.3s ease-out;
+}
+
+form.login fieldset {
+  transform: translateX(-50%);
+}
+
+form.signup fieldset {
+  transform: translateX(50%);
+}
+
+form.is-active fieldset {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 0.4s ease-in, transform 0.35s ease-in;
+}
+
+form legend {
+  position: absolute;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  clip-path: rect(0 0 0 0);
+}
+
+form button {
+  opacity: 0;
+  display: block;
+  width: 100%;
+  margin: 30px auto 10px;
+  font-size: 16px;
+  line-height: 40px;
+  border-radius: 0;
+  border: none;
+  transition: all 0.3s ease-out;
+}
+
+form.is-active button {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 0.4s ease-in;
+}
+
+.input-block {
+  margin-bottom: 20px;
+}
+
+.input-block label {
+  font-size: 14px;
+}
+
+.input-block input {
+  display: block;
+  width: 100%;
+  margin-top: 0;
+  padding-right: 15px;
+  padding-left: 15px;
+  font-size: 16px;
+  line-height: 40px;
+  background: transparent;
+  border-bottom: 1px solid var(--primary-text-color);
+  border-radius: 0;
+}
+
+form.login .input-block input {
+  border-bottom: 1px solid var(--modal-login-title-text);
+}
+
+form.signup .input-block input {
+  border-bottom: 1px solid var(--modal-login-title-text);
+}
+
+.btn-login {
+  transform: translateX(-30%);
+}
+
+.btn-signup {
+  transform: translateX(30%);
+}
+
+.btn-login,
+.btn-signup {
+  font-family: var(--font-raleway);
+  color: var(--modal-login-title-text);
+  background: transparent;
+  box-shadow: inset 0 0 0 1px var(--modal-login-title-text);
+}
+
+.btn-login:hover {
+  background-color: var(--modal-login-background-opac);
+  color: var(--primary-text-color);
+  box-shadow: inset 0 0 0 1px var(--modal-signup-background-opac);
+}
+
+.btn-signup:hover {
+  background-color: var(--modal-signup-background-opac);
+  color: var(--primary-text-color);
+  box-shadow: inset 0 0 0 1px var(--modal-login-title-text);
+}

@@ -1,7 +1,7 @@
 import React from "react"
 import "./Navigation.css"
 import { useDispatch } from "react-redux"
-import { openLoginForm } from "../../redux/modules/actions/loginformActions"
+import { openLoginForm } from "../../../redux/modules/actions/loginformActions"
 import Icon from "@mdi/react"
 import {
   mdilLightbulb,
