@@ -8,12 +8,10 @@ import { mdiWindowClose } from "@mdi/js"
 
 function Sidebar() {
   //for small screen
-  const [menuWidth, setMenuWidth] = useState(0)
+  const [isMenuOpen, setMenuOpen] = useState(false)
 
   const toggleMenu = () => {
-    if (menuWidth === 0) {
-      setMenuWidth(80)
-    } else setMenuWidth(0)
+    setMenuOpen(!isMenuOpen)
   }
 
   //for big screen
@@ -79,22 +77,18 @@ function Sidebar() {
       {/* small screen */}
       <div
         className={`small-screen-menu-icon ${
-          menuWidth > 0 ? "close-icon" : ""
+          isMenuOpen ? "close-icon expand" : ""
         }`}
         onClick={toggleMenu}
-        style={{ "--menu-width": `${menuWidth}vw` }}
       >
-        {menuWidth === 0 ? (
+        {!isMenuOpen ? (
           <Icon path={mdilMenu} size={1} />
         ) : (
           <Icon path={mdiWindowClose} size={1} />
         )}
       </div>
-      <div
-        className='sidebar-small-screen'
-        style={{ "--menu-width": `${menuWidth}vw` }}
-      >
-        <Navigation menuWidth={menuWidth} setMenuWidth={setMenuWidth} />
+      <div className={`sidebar-small-screen ${isMenuOpen ? " expand" : ""}`}>
+        <Navigation />
       </div>
     </div>
   )
