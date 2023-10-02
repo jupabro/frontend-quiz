@@ -13,8 +13,8 @@
   margin: 0;
 }
 
-.nav-login {
-  height: 10vh;
+.nav-login, .nav-expand {
+  height: 70px;
 }
 
 .nav-list {
@@ -34,7 +34,7 @@
 }
 
 .nav li.shrink-icon {
- justify-content: center;
+  justify-content: center;
 }
 
 .nav .hide {
@@ -42,11 +42,13 @@
 }
 
 .shrink-icon,
-.expand-icon {
+.expand-icon,
+.nav-login li {
   border: 1px solid var(--modal-login-title-text-opac);
 }
 
-.nav a {
+.nav a,
+.nav ul li span {
   color: inherit;
   font-family: var(--font-raleway);
   text-decoration: none;
@@ -61,7 +63,8 @@
 }
 
 @container sidebar (max-width: 170px) {
-  .nav a {
+  .nav a,
+  .nav li span {
     display: none;
   }
   .nav li {

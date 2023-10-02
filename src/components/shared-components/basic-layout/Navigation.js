@@ -15,19 +15,32 @@ import {
   mdilUnfoldMoreVertical,
 } from "@mdi/light-js"
 
-const Navigation = ({ sidebarWidth, shrinkWidth }) => {
+const Navigation = ({
+  sidebarWidth,
+  shrinkWidth,
+  minResizeWidth,
+  setSidebarWidth,
+}) => {
   const dispatch = useDispatch()
 
   const handleOpenLoginForm = () => {
     dispatch(openLoginForm())
   }
+
+  const toggleSideBar = () => {
+    if (sidebarWidth > shrinkWidth) {
+      setSidebarWidth(shrinkWidth)
+    } else setSidebarWidth(minResizeWidth + 1)
+  }
+
   return (
     <div className='nav'>
-      <ul className='nav-list'>
+      <ul className='nav-expand'>
         <li
           className={`shrink-icon ${
             sidebarWidth === shrinkWidth ? "hide" : ""
           }`}
+          onClick={toggleSideBar}
         >
           <Icon path={mdilUnfoldLessVertical} size={1} />
         </li>
@@ -35,9 +48,12 @@ const Navigation = ({ sidebarWidth, shrinkWidth }) => {
           className={`expand-icon ${
             sidebarWidth === shrinkWidth ? "" : "hide"
           }`}
+          onClick={toggleSideBar}
         >
           <Icon path={mdilUnfoldMoreVertical} size={1} />
         </li>
+      </ul>
+      <ul className='nav-list'>
         <li>
           <Icon path={mdilHome} size={1} />
           <a href='#'>Home</a>
@@ -64,11 +80,9 @@ const Navigation = ({ sidebarWidth, shrinkWidth }) => {
         </li>
       </ul>
       <ul className='nav-login'>
-        <li>
+        <li onClick={handleOpenLoginForm}>
           <Icon path={mdilLogin} size={1} />
-          <a href='#' onClick={handleOpenLoginForm}>
-            Login
-          </a>{" "}
+          <span>Login</span>
         </li>
       </ul>
     </div>
