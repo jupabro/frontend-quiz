@@ -71,8 +71,16 @@
   color: var(--background-color-light);
 }
 
+.switcher-login:hover {
+  color: var(--modal-login-title-text-opac);
+}
+
 .switcher-signup {
   color: var(--modal-signup-title-text);
+}
+
+.switcher-signup:hover {
+  color: var(--primary-text-color-opac);
 }
 
 .form-wrapper.is-active .switcher-login {
@@ -80,6 +88,8 @@
   transform: translateX(90px);
   cursor: default;
 }
+
+
 
 .form-wrapper.is-active .switcher-signup {
   color: var(--primary-text-color);
@@ -137,28 +147,28 @@
 @keyframes showLogin {
   0% {
     background: var(--modal-login-background);
-    transform: translate(40%, 10px);
+    transform: translate(40%, 10px) scaleY(0.8) scaleX(0.85);
   }
   50% {
-    transform: translate(0, 0);
+    transform: translate(0, 0) scaleY(0.8) scaleX(0.85);
   }
   100% {
     background-color: var(--modal-login-background-opac);
-    transform: translate(35%, -20px);
+    transform: translate(35%, -20px) scaleY(1) scaleX(1);
   }
 }
 
 @keyframes hideLogin {
   0% {
     background-color: var(--modal-login-background-opac);
-    transform: translate(35%, -20px);
+    transform: translate(35%, -20px) scaleY(1) scaleX(1);
   }
   50% {
-    transform: translate(0, 0);
+    transform: translate(0, 0) scaleY(0.8) scaleX(0.85);
   }
   100% {
     background: var(--modal-login-background);
-    transform: translate(40%, 10px);
+    transform: translate(40%, 10px) scaleY(0.8) scaleX(0.85);
   }
 }
 
@@ -178,27 +188,27 @@
 @keyframes showSignup {
   0% {
     background-color: var(--modal-signup-background);
-    transform: translate(-40%, 10px) scaleY(0.8);
+    transform: translate(-40%, 10px) scaleY(0.8) scaleX(0.85);
   }
   50% {
-    transform: translate(0, 0) scaleY(0.8);
+    transform: translate(0, 0) scaleY(0.8) scaleX(0.85);
   }
   100% {
     background-color: var(--modal-signup-background-opac);
-    transform: translate(-35%, -20px) scaleY(1);
+    transform: translate(-35%, -20px) scaleY(1) scaleX(1);
   }
 }
 
 @keyframes hideSignup {
   0% {
     background-color: var(--modal-signup-background-opac);
-    transform: translate(-35%, -20px) scaleY(1);
+    transform: translate(-35%, -20px) scaleY(1) scaleX(1);
   }
   50% {
-    transform: translate(0, 0) scaleY(0.8);
+    transform: translate(0, 0) scaleY(0.8) scaleX(0.85);
   }
   100% {
     background-color: var(--modal-signup-background);
-    transform: translate(-40%, 10px) scaleY(0.8);
+    transform: translate(-40%, 10px) scaleY(0.8) scaleX(0.85);
   }
 }

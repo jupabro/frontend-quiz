@@ -11,18 +11,33 @@ import {
   mdilHelp,
   mdilLogin,
   mdilFolder,
+  mdilUnfoldLessVertical,
+  mdilUnfoldMoreVertical,
 } from "@mdi/light-js"
 
-const Navigation = () => {
+const Navigation = ({ sidebarWidth, shrinkWidth }) => {
   const dispatch = useDispatch()
 
   const handleOpenLoginForm = () => {
-    console.log("open loginform")
     dispatch(openLoginForm())
   }
   return (
     <div className='nav'>
       <ul className='nav-list'>
+        <li
+          className={`shrink-icon ${
+            sidebarWidth === shrinkWidth ? "hide" : ""
+          }`}
+        >
+          <Icon path={mdilUnfoldLessVertical} size={1} />
+        </li>
+        <li
+          className={`expand-icon ${
+            sidebarWidth === shrinkWidth ? "" : "hide"
+          }`}
+        >
+          <Icon path={mdilUnfoldMoreVertical} size={1} />
+        </li>
         <li>
           <Icon path={mdilHome} size={1} />
           <a href='#'>Home</a>

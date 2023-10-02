@@ -33,6 +33,19 @@
   color: var(--secondary-text-color);
 }
 
+.nav li.shrink-icon {
+ justify-content: center;
+}
+
+.nav .hide {
+  display: none;
+}
+
+.shrink-icon,
+.expand-icon {
+  border: 1px solid var(--modal-login-title-text-opac);
+}
+
 .nav a {
   color: inherit;
   font-family: var(--font-raleway);

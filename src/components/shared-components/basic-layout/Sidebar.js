@@ -55,7 +55,7 @@ function Sidebar() {
         className={`sidebar ${isResizing ? "resizing" : ""}`}
         style={{ "--sidebar-width": `${sidebarWidth}px` }}
       >
-        <Navigation />
+        <Navigation sidebarWidth={sidebarWidth} shrinkWidth={shrinkWidth} />
       </div>
       <div className='resizer' onMouseDown={startResizing}></div>
     </div>

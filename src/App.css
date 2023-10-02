@@ -19,10 +19,11 @@
   --info--opac-color: rgba(249, 211, 180, 0.05);
 
   --primary-text-color: rgb(249, 211, 180);
+  --primary-text-color-opac: rgb(249, 211, 180, 0.6);
   --secondary-text-color: rgb(161, 161, 161);
-  --accent-text-color: rgb(0, 0, 0);
+  --accent-text-color: rgb(244, 233, 233);
   --background-color-dark: rgb(33, 36, 38);
-  --background-color-light: rgb(53, 65, 82);
+  --background-color-light: rgb(78, 93, 115);
   --background-color-dark-opac: rgba(33, 36, 38, 0.9);
   --title-background-start: rgba(249, 211, 180, 1);
   --title-background-end: rgba(249, 211, 180, 0);
@@ -33,11 +34,12 @@
   --input-hover-scale: 1.02;
   --button-hover-scale: 1.05;
 
-  --modal-signup-background: rgb(95, 81, 70);
+  --modal-signup-background: rgb(83, 71, 62);
   --modal-signup-background-opac: rgba(249, 211, 180, 0.25);
   --modal-login-background: rgb(53, 64, 77);
   --modal-login-background-opac: rgb(53, 65, 82, 0.7);
   --modal-login-title-text: rgb(183, 213, 253);
+  --modal-login-title-text-opac: rgb(183, 213, 253, 0.5);
   --modal-signup-title-text: rgb(137, 119, 104);
 }
 

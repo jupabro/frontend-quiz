@@ -43,7 +43,10 @@ const AuthModal = () => {
               className='login-form-container'
               onClick={(e) => e.stopPropagation()}
             >
-              <LoginForm activeTab={activeTab} />
+              <LoginForm
+                activeTab={activeTab}
+                handleSwitchTab={handleSwitchTab}
+              />
             </div>
           </div>
           <div
@@ -63,7 +66,10 @@ const AuthModal = () => {
               className='signup-form-container'
               onClick={(e) => e.stopPropagation()}
             >
-              <SignUpForm activeTab={activeTab}/>
+              <SignUpForm
+                activeTab={activeTab}
+                handleSwitchTab={handleSwitchTab}
+              />
             </div>
           </div>
         </div>
