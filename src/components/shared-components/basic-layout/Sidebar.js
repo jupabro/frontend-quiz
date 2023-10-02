@@ -2,11 +2,24 @@ import React from "react"
 import { useState, useEffect, useRef, useCallback } from "react"
 import Navigation from "./Navigation"
 import "./Sidebar.css"
+import Icon from "@mdi/react"
+import { mdilMenu } from "@mdi/light-js"
+import { mdiWindowClose } from "@mdi/js"
 
 function Sidebar() {
+  //for small screen
+  const [menuWidth, setMenuWidth] = useState(0)
+
+  const toggleMenu = () => {
+    if (menuWidth === 0) {
+      setMenuWidth(80)
+    } else setMenuWidth(0)
+  }
+
+  //for big screen
   const sidebarRef = useRef(null)
   const [isResizing, setIsResizing] = useState(false)
-  const [sidebarWidth, setSidebarWidth] = useState(260)
+  const [sidebarWidth, setSidebarWidth] = useState(190)
   const minResizeWidth = 170
   const shrinkWidth = 70
 
@@ -52,7 +65,7 @@ function Sidebar() {
     <div className='app-sidebar' onMouseDown={(e) => e.preventDefault()}>
       <div
         ref={sidebarRef}
-        className={`sidebar ${isResizing ? "resizing" : ""}`}
+        className={`sidebar-big-screen ${isResizing ? "resizing" : ""}`}
         style={{ "--sidebar-width": `${sidebarWidth}px` }}
       >
         <Navigation
@@ -63,6 +76,26 @@ function Sidebar() {
         />
       </div>
       <div className='resizer' onMouseDown={startResizing}></div>
+      {/* small screen */}
+      <div
+        className={`small-screen-menu-icon ${
+          menuWidth > 0 ? "close-icon" : ""
+        }`}
+        onClick={toggleMenu}
+        style={{ "--menu-width": `${menuWidth}vw` }}
+      >
+        {menuWidth === 0 ? (
+          <Icon path={mdilMenu} size={1} />
+        ) : (
+          <Icon path={mdiWindowClose} size={1} />
+        )}
+      </div>
+      <div
+        className='sidebar-small-screen'
+        style={{ "--menu-width": `${menuWidth}vw` }}
+      >
+        <Navigation menuWidth={menuWidth} setMenuWidth={setMenuWidth} />
+      </div>
     </div>
   )
 }

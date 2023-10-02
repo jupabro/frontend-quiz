@@ -27,7 +27,9 @@ const Navigation = ({
     dispatch(openLoginForm())
   }
 
+  //for big screens
   const toggleSideBar = () => {
+    if (!sidebarWidth) return
     if (sidebarWidth > shrinkWidth) {
       setSidebarWidth(shrinkWidth)
     } else setSidebarWidth(minResizeWidth + 1)
@@ -35,7 +37,7 @@ const Navigation = ({
 
   return (
     <div className='nav'>
-      <ul className='nav-expand'>
+      <ul className='nav-menu-icons'>
         <li
           className={`shrink-icon ${
             sidebarWidth === shrinkWidth ? "hide" : ""

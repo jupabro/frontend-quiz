@@ -13,7 +13,8 @@
   margin: 0;
 }
 
-.nav-login, .nav-expand {
+.nav-login,
+.nav-menu-icons {
   height: 70px;
 }
 
@@ -47,6 +48,10 @@
   border: 1px solid var(--modal-login-title-text-opac);
 }
 
+.nav .small-screen-menu-icon {
+  display: none;
+}
+
 .nav a,
 .nav ul li span {
   color: inherit;
@@ -69,5 +74,18 @@
   }
   .nav li {
     justify-content: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .nav {
+    width: 100%;
+  }
+  .nav .shrink-icon,
+  .nav .expand-icon {
+    display: none;
+  }
+  .nav-menu-icons {
+    display: none;
   }
 }
