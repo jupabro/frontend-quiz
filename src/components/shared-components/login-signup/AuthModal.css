@@ -16,6 +16,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 1006;
 }
 
 .switcher {
@@ -40,6 +41,19 @@
     display: none;
   }
 
+  .window-close-icon {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    color: var(--modal-login-title-text-opac);
+    animation: fadeIn 0.5s ease-in-out forwards;
+  }
+
+  .window-close-icon:hover {
+    color: var(--modal-login-title-text);
+    cursor: pointer;
+  }
+
   .login-form-container {
     border-radius: 3px;
     backdrop-filter: blur(5px);
@@ -56,6 +70,15 @@
     background-color: var(--modal-signup-background-opac);
   }
 
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
   .switcher-login,
   .switcher-signup {
     margin-top: 30px;
@@ -63,6 +86,7 @@
     cursor: default;
     border-bottom: 2px solid;
     padding-bottom: 3px;
+    animation: fadeIn 0.5s ease-in-out forwards;
   }
 
   .switcher-signup {

@@ -7,6 +7,8 @@ import {
 import LoginForm from "./LoginForm"
 import SignUpForm from "./SignUpForm"
 import "./AuthModal.css"
+import Icon from "@mdi/react"
+import { mdiWindowClose } from "@mdi/js"
 
 const AuthModal = () => {
   const dispatch = useDispatch()
@@ -25,23 +27,39 @@ const AuthModal = () => {
   return isOpen ? (
     <div className='modal' onClick={handleCloseModal}>
       <div
-        className='forms-section small-screen-auth'
+        className={`forms-section small-screen-auth ${
+          activeTab === "login" ? "login-active" : "signup-active"
+        }`}
         onClick={(e) => e.stopPropagation()}
       >
         {activeTab === "login" && (
           <div className='login-form-container'>
+            <div className='window-close-icon' onClick={handleCloseModal}>
+              {" "}
+              <Icon path={mdiWindowClose} size={1} />
+            </div>
             <button type='button' className='switcher switcher-login'>
               Login
             </button>
-            <LoginForm />
+            <LoginForm
+              activeTab={activeTab}
+              handleSwitchTab={handleSwitchTab}
+            />
           </div>
         )}
         {activeTab === "signup" && (
           <div className='signup-form-container'>
+            <div className='window-close-icon' onClick={handleCloseModal}>
+              {" "}
+              <Icon path={mdiWindowClose} size={1} />
+            </div>
             <button type='button' className='switcher switcher-signup'>
               Sign up
             </button>
-            <SignUpForm />
+            <SignUpForm
+              activeTab={activeTab}
+              handleSwitchTab={handleSwitchTab}
+            />
           </div>
         )}
       </div>

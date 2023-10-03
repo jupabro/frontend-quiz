@@ -9,19 +9,24 @@ form {
   cursor: pointer;
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+form {
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
 form fieldset {
   opacity: 1;
   margin: 0;
   padding: 0;
   border: 0;
-}
-
-form legend {
-  position: absolute;
-  overflow: hidden;
-  width: 1px;
-  height: 1px;
-  clip-path: rect(0 0 0 0);
 }
 
 form button.btn-login,
@@ -104,11 +109,59 @@ form button:disabled {
   box-shadow: inset 0 0 0 1px var(--modal-login-background);
 }
 
+.switch-text {
+  display: flex;
+  justify-content: center;
+  font-size: smaller;
+  margin-top: 15px;
+  transition: color 0.3s ease;
+}
+
+.switch-text-button {
+  margin-left: 5px;
+}
+
+.switch-text:hover {
+  color: var(--modal-login-title-text);
+}
+
 /* big screen auth */
 
 @media (min-width: 501px) {
+  @keyframes pulsate {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.02);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    z-index: 1000;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    animation: none;
+    transition: transform 0.3s;
+  }
+
+  .overlay:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+    animation: pulsate 1s;
+  }
+
   form.is-active {
     cursor: default;
+  }
+
+  .switch-text {
+    display: none;
   }
 
   form fieldset {

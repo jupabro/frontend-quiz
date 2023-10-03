@@ -22,29 +22,40 @@ const LoginForm = ({ activeTab, handleSwitchTab }) => {
   }
 
   return (
-    <form
-      onClick={handleClick}
-      className={`login ${activeTab === "login" ? "is-active" : ""}`}
-    >
-      <fieldset>
-        <legend>Please, enter your email and password for login.</legend>
-        <div className='input-block'>
-          <label for='login-email'>E-mail</label>
-          <input id='login-email' type='email' spellcheck='false' required />
+    <>
+      {activeTab === "signup" && (
+        <div className='overlay' onClick={handleClick}>
+          {" "}
         </div>
-        <div className='input-block'>
-          <label for='login-password'>Password</label>
-          <input id='login-password' type='password' required />
+      )}
+
+      <form className={`login ${activeTab === "login" ? "is-active" : ""}`}>
+        <fieldset>
+          <div className='input-block'>
+            <label for='login-email'>E-mail</label>
+            <input id='login-email' type='email' spellcheck='false' required />
+          </div>
+          <div className='input-block'>
+            <label for='login-password'>Password</label>
+            <input id='login-password' type='password' required />
+          </div>
+        </fieldset>
+        <button
+          type='submit'
+          class='btn-login'
+          disabled={activeTab === "signup" ? true : false}
+        >
+          Login
+        </button>
+        <div
+          className='switch-text'
+          onClick={(e) => handleSwitchTab("signup", e)}
+        >
+          {" "}
+          No Account yet? <span className='switch-text-button'> Sign Up!</span>
         </div>
-      </fieldset>
-      <button
-        type='submit'
-        class='btn-login'
-        disabled={activeTab === "signup" ? true : false}
-      >
-        Login
-      </button>
-    </form>
+      </form>
+    </>
   )
 }
 

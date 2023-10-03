@@ -21,37 +21,52 @@ const SignUpForm = ({ activeTab, handleSwitchTab }) => {
   }
 
   return (
-    <form
-      onClick={handleClick}
-      onSubmit={handleSubmit}
-      className={`signup ${activeTab === "signup" ? "is-active" : ""}`}
-    >
-      <fieldset>
-        <legend>
-          Please, enter your email, password and password confirmation for sign
-          up.
-        </legend>
-        <div className='input-block'>
-          <label for='signup-email'>E-mail</label>
-          <input id='signup-email' type='email' spellcheck='false' required7 />
+    <>
+      {activeTab === "login" && (
+        <div className='overlay' onClick={handleClick}>
+          {" "}
         </div>
-        <div className='input-block'>
-          <label for='signup-password'>Password</label>
-          <input id='signup-password' type='password' required />
-        </div>
-        <div className='input-block'>
-          <label for='signup-password-confirm'>Confirm password</label>
-          <input id='signup-password-confirm' type='password' required />
-        </div>
-      </fieldset>
-      <button
-        type='submit'
-        class='btn-signup'
-        disabled={activeTab === "login" ? true : false}
+      )}
+      <form
+        onSubmit={handleSubmit}
+        className={`signup ${activeTab === "signup" ? "is-active" : ""}`}
       >
-        Continue
-      </button>
-    </form>
+        <fieldset>
+          <div className='input-block'>
+            <label for='signup-email'>E-mail</label>
+            <input
+              id='signup-email'
+              type='email'
+              spellcheck='false'
+              required7
+            />
+          </div>
+          <div className='input-block'>
+            <label for='signup-password'>Password</label>
+            <input id='signup-password' type='password' required />
+          </div>
+          <div className='input-block'>
+            <label for='signup-password-confirm'>Confirm password</label>
+            <input id='signup-password-confirm' type='password' required />
+          </div>
+        </fieldset>
+        <button
+          type='submit'
+          class='btn-signup'
+          disabled={activeTab === "login" ? true : false}
+        >
+          Continue
+        </button>
+        <div
+          className='switch-text'
+          onClick={(e) => handleSwitchTab("login", e)}
+        >
+          {" "}
+          Already have an Account?{" "}
+          <span className='switch-text-button'> Login!</span>
+        </div>
+      </form>
+    </>
   )
 }
 
