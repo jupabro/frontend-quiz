@@ -24,7 +24,28 @@ const AuthModal = () => {
 
   return isOpen ? (
     <div className='modal' onClick={handleCloseModal}>
-      <div className='forms-section'>
+      <div
+        className='forms-section small-screen-auth'
+        onClick={(e) => e.stopPropagation()}
+      >
+        {activeTab === "login" && (
+          <div className='login-form-container'>
+            <button type='button' className='switcher switcher-login'>
+              Login
+            </button>
+            <LoginForm />
+          </div>
+        )}
+        {activeTab === "signup" && (
+          <div className='signup-form-container'>
+            <button type='button' className='switcher switcher-signup'>
+              Sign up
+            </button>
+            <SignUpForm />
+          </div>
+        )}
+      </div>
+      <div className='forms-section big-screen-auth'>
         <div className='forms'>
           <div
             className={`form-wrapper ${

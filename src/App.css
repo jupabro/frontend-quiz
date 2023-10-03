@@ -37,7 +37,7 @@
   --modal-signup-background: rgb(83, 71, 62);
   --modal-signup-background-opac: rgba(249, 211, 180, 0.25);
   --modal-login-background: rgb(53, 64, 77);
-  --modal-login-background-opac: rgb(53, 65, 82, 0.7);
+  --modal-login-background-opac: rgb(53, 65, 82, 0.5);
   --modal-login-title-text: rgb(183, 213, 253);
   --modal-login-title-text-opac: rgb(183, 213, 253, 0.5);
   --modal-signup-title-text: rgb(137, 119, 104);
