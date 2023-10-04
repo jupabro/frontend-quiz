@@ -60,27 +60,26 @@ form button.btn-signup {
   padding-left: 15px;
   line-height: 40px;
   background: transparent !important;
-  border-bottom: 1px solid var(--primary-text-color);
+  border-bottom: 1px solid var(--modal-login-title-text);
   border-radius: 0;
 }
 
 .input-block label {
   font-size: 14px;
+  height: 19px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .input-block input:focus {
   outline: none;
 }
 
-form.login .input-block input {
-  border-bottom: 1px solid var(--modal-login-title-text);
-}
-
 form.signup .input-block input {
   color: var(--background-color-dark);
   text-shadow: none;
   font-weight: bold;
-  border-bottom: 1px solid var(--modal-login-title-text);
 }
 
 form button.btn-login,
@@ -123,6 +122,54 @@ form button:disabled {
 
 .switch-text:hover {
   color: var(--modal-login-title-text);
+}
+
+.valid {
+  color: var(--approve-color-bright);
+}
+
+.icon-container {
+  position: relative;
+  display: block;
+  overflow: visible;
+}
+
+.hide {
+  display: none;
+}
+
+.info-text {
+  position: absolute;
+  font-family: var(--font-roboto);
+  color: var(--input-shadow-dark);
+  top: 100%;
+  right: 0;
+  background-color: var(--info-color);
+  padding: 10px 8px;
+  font-size: 12px;
+  text-shadow: none;
+  line-height: 1.2rem;
+  font-weight: 500;
+  width: 180px;
+  border-radius: 0;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.hover-icon {
+  cursor: pointer;
+  z-index: 1006;
+}
+
+.input-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.password-toggle {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--modal-login-title-text);
 }
 
 /* big screen auth */

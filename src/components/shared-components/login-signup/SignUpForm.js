@@ -1,12 +1,55 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { closeLoginForm } from "../../../redux/modules/actions"
 import "./Form.css"
+import Icon from "@mdi/react"
+import { mdilCheck, mdilInformation, mdilEye, mdilEyeOff } from "@mdi/light-js"
+
+const EMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
 
 const SignUpForm = ({ activeTab, handleSwitchTab }) => {
   const dispatch = useDispatch()
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
+
+  const [email, setEmail] = useState("")
+  const [validEmail, setValidEmail] = useState(false)
+
+  const [pwd, setPwd] = useState("")
+  const [validPwd, setValidPwd] = useState(false)
+
+  const [matchPwd, setMatchPwd] = useState("")
+  const [validMatch, setValidMatch] = useState(false)
+
+  const [passwordVisible, setPasswordVisible] = useState(false)
+
+  const [hover, setHover] = useState(false)
+  const [infoText, setInfoText] = useState("")
+
+  useEffect(() => {
+    setValidEmail(EMAIL_REGEX.test(email))
+  }, [email])
+
+  useEffect(() => {
+    setValidPwd(PWD_REGEX.test(pwd))
+  }, [pwd])
+
+  useEffect(() => {
+    if (validPwd) {
+      setValidMatch(pwd === matchPwd)
+    }
+  }, [matchPwd, validPwd, pwd])
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible)
+  }
+
+  const onHover = (infoText) => {
+    setHover(true)
+    setInfoText(infoText)
+  }
+  const onLeave = () => {
+    setHover(false)
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -33,26 +76,126 @@ const SignUpForm = ({ activeTab, handleSwitchTab }) => {
       >
         <fieldset>
           <div className='input-block'>
-            <label for='signup-email'>E-mail</label>
+            <label htmlFor='signup-email'>
+              Email
+              <Icon
+                path={mdilCheck}
+                size={0.6}
+                className={validEmail ? "valid" : "hide"}
+              />
+              <div
+                className={`icon-container ${
+                  validEmail || !email ? "hide" : ""
+                }`}
+              >
+                <Icon
+                  path={mdilInformation}
+                  size={0.6}
+                  className='hover-icon'
+                  onMouseEnter={() => onHover("email")}
+                  onMouseLeave={onLeave}
+                  role='button'
+                  tabIndex='-3'
+                />
+                {hover && infoText === "email" && (
+                  <span className='info-text'>
+                    4 to 24 characters.
+                    <br />
+                    Must begin with a letter.
+                    <br />
+                    Letters, numbers, underscores, hyphens allowed.
+                  </span>
+                )}
+              </div>
+            </label>
             <input
               id='signup-email'
+              autoComplete='off'
               type='email'
-              spellcheck='false'
-              required7
+              spellCheck='false'
+              required
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
             />
           </div>
           <div className='input-block'>
-            <label for='signup-password'>Password</label>
-            <input id='signup-password' type='password' required />
+            <label htmlFor='signup-password'>
+              Password{" "}
+              <Icon
+                path={mdilCheck}
+                size={0.6}
+                className={validPwd ? "valid" : "hide"}
+              />
+              <div
+                className={`icon-container ${validPwd || !pwd ? "hide" : ""}`}
+              >
+                <Icon
+                  path={mdilInformation}
+                  size={0.6}
+                  className='hover-icon'
+                  onMouseEnter={() => onHover("pwd")}
+                  onMouseLeave={onLeave}
+                  role='button'
+                  tabIndex='-3'
+                />
+                {hover && infoText === "pwd" && (
+                  <span className='info-text'>
+                    8 to 24 characters.
+                    <br />
+                    Please include uppercase and lowercase letters, numbers and
+                    special characters.
+                    <br />
+                    Allowed special characters: <br />
+                    <span>$ ! % @ #</span>
+                  </span>
+                )}
+              </div>
+            </label>
+            <div className='input-container'>
+              <input
+                id='signup-password'
+                type={passwordVisible ? "text" : "password"}
+                required
+                onChange={(e) => setPwd(e.target.value)}
+                value={pwd}
+              />
+              <span
+                className='password-toggle'
+                onClick={togglePasswordVisibility}
+              >
+                {passwordVisible ? (
+                  <Icon
+                    path={mdilEyeOff}
+                    size={0.8}
+                    className='pwd-toggle-icon'
+                  />
+                ) : (
+                  <Icon path={mdilEye} size={0.8} className='pwd-toggle-icon' />
+                )}
+              </span>
+            </div>
           </div>
           <div className='input-block'>
-            <label for='signup-password-confirm'>Confirm password</label>
-            <input id='signup-password-confirm' type='password' required />
+            <label htmlFor='signup-password-confirm'>
+              Confirm password{" "}
+              <Icon
+                path={mdilCheck}
+                size={0.6}
+                className={validMatch ? "valid" : "hide"}
+              />
+            </label>
+            <input
+              id='signup-password-confirm'
+              type={passwordVisible ? "text" : "password"}
+              required
+              onChange={(e) => setMatchPwd(e.target.value)}
+              value={matchPwd}
+            />
           </div>
         </fieldset>
         <button
           type='submit'
-          class='btn-signup'
+          className='btn-signup'
           disabled={activeTab === "login" ? true : false}
         >
           Continue

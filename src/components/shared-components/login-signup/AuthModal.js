@@ -63,6 +63,7 @@ const AuthModal = () => {
           </div>
         )}
       </div>
+      
       <div className='forms-section big-screen-auth'>
         <div className='forms'>
           <div

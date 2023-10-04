@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import options from "../assets/data/options.json"
 import SearchIcon from "../assets/search.svg"
-import { fetchQuizData } from "../services/apiService"
+import { fetchQuizData } from "../services/api/extern-api"
 import { useDispatch, useSelector } from "react-redux"
 import { storeSelections, storeQuizzData } from "../redux/modules/actions"
 

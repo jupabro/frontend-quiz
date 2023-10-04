@@ -8,7 +8,7 @@ import {
   storeQuizzData,
 } from "../redux/modules/actions"
 import { useNavigate } from "react-router-dom"
-import { fetchQuizData } from "../services/apiService"
+import { fetchQuizData } from "../services/api/extern-api"
 
 const Resolution = () => {
   const score = useSelector((state) => state.quizz.score)

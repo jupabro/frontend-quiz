@@ -2,11 +2,19 @@ import React, { useState } from "react"
 import { useDispatch } from "react-redux"
 import { closeLoginForm } from "../../../redux/modules/actions"
 import "./Form.css"
+import Icon from "@mdi/react"
+import { mdilEye, mdilEyeOff } from "@mdi/light-js"
 
 const LoginForm = ({ activeTab, handleSwitchTab }) => {
   const dispatch = useDispatch()
+
+  const [passwordVisible, setPasswordVisible] = useState(false)
   const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
+  const [pwd, setPwd] = useState("")
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible)
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -32,17 +40,39 @@ const LoginForm = ({ activeTab, handleSwitchTab }) => {
       <form className={`login ${activeTab === "login" ? "is-active" : ""}`}>
         <fieldset>
           <div className='input-block'>
-            <label for='login-email'>E-mail</label>
-            <input id='login-email' type='email' spellcheck='false' required />
+            <label htmlFor='login-email'>Email</label>
+            <input id='login-email' type='email' spellCheck='false' required />
           </div>
           <div className='input-block'>
-            <label for='login-password'>Password</label>
-            <input id='login-password' type='password' required />
+            <label htmlFor='login-password'>Password</label>
+            <div className='input-container'>
+              <input
+                id='login-password'
+                type={passwordVisible ? "text" : "password"}
+                required
+                onChange={(e) => setPwd(e.target.value)}
+                value={pwd}
+              />
+              <span
+                className='password-toggle'
+                onClick={togglePasswordVisibility}
+              >
+                {passwordVisible ? (
+                  <Icon
+                    path={mdilEyeOff}
+                    size={0.8}
+                    className='pwd-toggle-icon'
+                  />
+                ) : (
+                  <Icon path={mdilEye} size={0.8} className='pwd-toggle-icon' />
+                )}
+              </span>
+            </div>
           </div>
         </fieldset>
         <button
           type='submit'
-          class='btn-login'
+          className='btn-login'
           disabled={activeTab === "signup" ? true : false}
         >
           Login
