@@ -27,18 +27,31 @@ const SignUpForm = ({ activeTab, handleSwitchTab }) => {
   const [infoText, setInfoText] = useState("")
 
   useEffect(() => {
-    setEmail(storedInputs.email)
-    setPwd(storedInputs.pwd)
-  }, [])
+    console.log("useeffect in signuo", storedInputs)
+
+    if (storedInputs != null) {
+      setEmail(storedInputs.email)
+      setPwd(storedInputs.pwd)
+    } else {
+      setEmail("")
+      setPwd("")
+    }
+  }, [storedInputs])
+
+  useEffect(() => {
+    //when tab switches to login, store the form data
+    if (activeTab === "login") {
+      console.log("makes shit")
+      dispatch(storeFormInputs({ email: email, pwd: pwd }))
+    }
+  }, [activeTab])
 
   useEffect(() => {
     setValidEmail(EMAIL_REGEX.test(email))
-    //dispatch(storeFormInputs({ email: email }))
   }, [email, dispatch])
 
   useEffect(() => {
     setValidPwd(PWD_REGEX.test(pwd))
-    //dispatch(storeFormInputs({ pwd: pwd }))
   }, [pwd, dispatch])
 
   useEffect(() => {
@@ -69,9 +82,14 @@ const SignUpForm = ({ activeTab, handleSwitchTab }) => {
 
   const handleClick = (e) => {
     if (activeTab === "login") {
-      dispatch(storeFormInputs({ email: email, pwd: pwd }))
       handleSwitchTab("signup", e)
     }
+  }
+
+  const goToLogin = (e) => {
+    dispatch(storeFormInputs({ email: email, pwd: pwd }))
+    console.log("gotologin", storedInputs)
+    handleSwitchTab("login", e)
   }
 
   return (
@@ -120,7 +138,6 @@ const SignUpForm = ({ activeTab, handleSwitchTab }) => {
               </div>
             </label>
             <input
-              id='signup-email'
               autoComplete='off'
               type='email'
               spellCheck='false'
@@ -164,7 +181,6 @@ const SignUpForm = ({ activeTab, handleSwitchTab }) => {
             </label>
             <div className='input-container'>
               <input
-                id='signup-password'
                 type={passwordVisible ? "text" : "password"}
                 required
                 onChange={(e) => setPwd(e.target.value)}
@@ -196,7 +212,6 @@ const SignUpForm = ({ activeTab, handleSwitchTab }) => {
               />
             </label>
             <input
-              id='signup-password-confirm'
               type={passwordVisible ? "text" : "password"}
               required
               onChange={(e) => setMatchPwd(e.target.value)}
@@ -211,10 +226,7 @@ const SignUpForm = ({ activeTab, handleSwitchTab }) => {
         >
           Sign Up
         </button>
-        <div
-          className='switch-text'
-          onClick={(e) => handleSwitchTab("login", e)}
-        >
+        <div className='switch-text' onClick={goToLogin}>
           {" "}
           Already have an Account?{" "}
           <span className='switch-text-button'> Login!</span>

@@ -1,16 +1,35 @@
-import React, { useState } from "react"
-import { useDispatch } from "react-redux"
-import { closeLoginForm } from "../../../redux/modules/actions"
+import React, { useState, useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { closeLoginForm, storeFormInputs } from "../../../redux/modules/actions"
 import "./Form.css"
 import Icon from "@mdi/react"
 import { mdilEye, mdilEyeOff } from "@mdi/light-js"
 
 const LoginForm = ({ activeTab, handleSwitchTab }) => {
   const dispatch = useDispatch()
+  const storedInputs = useSelector((state) => state.loginForm.formInputs)
 
   const [passwordVisible, setPasswordVisible] = useState(false)
   const [email, setEmail] = useState("")
   const [pwd, setPwd] = useState("")
+
+  useEffect(() => {
+    console.log("useeffect in login", storedInputs)
+
+    if (storedInputs != null) {
+      setEmail(storedInputs.email)
+      setPwd(storedInputs.pwd)
+    } else {
+      setEmail("")
+      setPwd("")
+    }
+  }, [storedInputs])
+
+  useEffect(() => {
+    if (activeTab === "signup") {
+      dispatch(storeFormInputs({ email: email, pwd: pwd }))
+    }
+  }, [activeTab])
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible)
@@ -29,6 +48,11 @@ const LoginForm = ({ activeTab, handleSwitchTab }) => {
     }
   }
 
+  const goToSignUp = (e) => {
+    dispatch(storeFormInputs({ email: email, pwd: pwd }))
+    handleSwitchTab("signup", e)
+  }
+
   return (
     <>
       {activeTab === "signup" && (
@@ -45,7 +69,6 @@ const LoginForm = ({ activeTab, handleSwitchTab }) => {
           <div className='input-block'>
             <label htmlFor='login-email'>Email</label>
             <input
-              id='login-email'
               type='email'
               spellCheck='false'
               required
@@ -57,7 +80,6 @@ const LoginForm = ({ activeTab, handleSwitchTab }) => {
             <label htmlFor='login-password'>Password</label>
             <div className='input-container'>
               <input
-                id='login-password'
                 type={passwordVisible ? "text" : "password"}
                 required
                 onChange={(e) => setPwd(e.target.value)}
@@ -87,10 +109,7 @@ const LoginForm = ({ activeTab, handleSwitchTab }) => {
         >
           Login
         </button>
-        <div
-          className='switch-text'
-          onClick={(e) => handleSwitchTab("signup", e)}
-        >
+        <div className='switch-text' onClick={goToSignUp}>
           {" "}
           No Account yet? <span className='switch-text-button'> Sign Up!</span>
         </div>

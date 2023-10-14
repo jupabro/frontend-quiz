@@ -1,7 +1,7 @@
 const initialState = {
   isOpen: false,
   activeTab: "login",
-  formInputs: { email: "", pwd: "" },
+  formInputs: null,
 }
 
 const loginFormReducer = (state = initialState, action) => {
