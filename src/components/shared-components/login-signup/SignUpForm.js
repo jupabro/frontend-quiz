@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
-import { useDispatch } from "react-redux"
-import { closeLoginForm } from "../../../redux/modules/actions"
+import { useDispatch, useSelector } from "react-redux"
+import { closeLoginForm, storeFormInputs } from "../../../redux/modules/actions"
 import "./Form.css"
 import Icon from "@mdi/react"
 import { mdilCheck, mdilInformation, mdilEye, mdilEyeOff } from "@mdi/light-js"
@@ -10,6 +10,7 @@ const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
 
 const SignUpForm = ({ activeTab, handleSwitchTab }) => {
   const dispatch = useDispatch()
+  const storedInputs = useSelector((state) => state.loginForm.formInputs)
 
   const [email, setEmail] = useState("")
   const [validEmail, setValidEmail] = useState(false)
@@ -26,12 +27,19 @@ const SignUpForm = ({ activeTab, handleSwitchTab }) => {
   const [infoText, setInfoText] = useState("")
 
   useEffect(() => {
+    setEmail(storedInputs.email)
+    setPwd(storedInputs.pwd)
+  }, [])
+
+  useEffect(() => {
     setValidEmail(EMAIL_REGEX.test(email))
-  }, [email])
+    //dispatch(storeFormInputs({ email: email }))
+  }, [email, dispatch])
 
   useEffect(() => {
     setValidPwd(PWD_REGEX.test(pwd))
-  }, [pwd])
+    //dispatch(storeFormInputs({ pwd: pwd }))
+  }, [pwd, dispatch])
 
   useEffect(() => {
     if (validPwd) {
@@ -53,12 +61,15 @@ const SignUpForm = ({ activeTab, handleSwitchTab }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log("signup submit")
+    if (!validEmail || !validMatch || !validPwd) return
+
+    console.log("signup submit", email, pwd)
     dispatch(closeLoginForm())
   }
 
   const handleClick = (e) => {
     if (activeTab === "login") {
+      dispatch(storeFormInputs({ email: email, pwd: pwd }))
       handleSwitchTab("signup", e)
     }
   }
@@ -196,9 +207,9 @@ const SignUpForm = ({ activeTab, handleSwitchTab }) => {
         <button
           type='submit'
           className='btn-signup'
-          disabled={activeTab === "login" ? true : false}
+          disabled={!validEmail || !validMatch || !validPwd}
         >
-          Continue
+          Sign Up
         </button>
         <div
           className='switch-text'

@@ -1,6 +1,7 @@
 const initialState = {
   isOpen: false,
   activeTab: "login",
+  formInputs: { email: "", pwd: "" },
 }
 
 const loginFormReducer = (state = initialState, action) => {
@@ -11,6 +12,8 @@ const loginFormReducer = (state = initialState, action) => {
       return { ...state, isOpen: false }
     case "SWITCH_LOGIN_FORM_TAB":
       return { ...state, activeTab: action.payload }
+    case "STORE_LOGIN_SIGNUP_DETAILS":
+      return { ...state, formInputs: action.payload }
     default:
       return state
   }

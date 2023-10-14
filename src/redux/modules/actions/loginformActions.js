@@ -16,3 +16,10 @@ export const switchLoginFormTab = (tab) => {
     payload: tab,
   }
 }
+
+export const storeFormInputs = (formInputs) => {
+  return {
+    type: "STORE_LOGIN_SIGNUP_DETAILS",
+    payload: formInputs,
+  }
+}

@@ -172,6 +172,10 @@ form button:disabled {
   border-bottom: 1px solid var(--modal-login-title-text);
 }
 
+.pwd-toggle-icon:hover {
+  cursor: pointer;
+}
+
 /* big screen auth */
 
 @media (min-width: 501px) {

@@ -9,7 +9,7 @@ const LoginForm = ({ activeTab, handleSwitchTab }) => {
   const dispatch = useDispatch()
 
   const [passwordVisible, setPasswordVisible] = useState(false)
-  const [username, setUsername] = useState("")
+  const [email, setEmail] = useState("")
   const [pwd, setPwd] = useState("")
 
   const togglePasswordVisibility = () => {
@@ -37,11 +37,21 @@ const LoginForm = ({ activeTab, handleSwitchTab }) => {
         </div>
       )}
 
-      <form className={`login ${activeTab === "login" ? "is-active" : ""}`}>
+      <form
+        onSubmit={handleSubmit}
+        className={`login ${activeTab === "login" ? "is-active" : ""}`}
+      >
         <fieldset>
           <div className='input-block'>
             <label htmlFor='login-email'>Email</label>
-            <input id='login-email' type='email' spellCheck='false' required />
+            <input
+              id='login-email'
+              type='email'
+              spellCheck='false'
+              required
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+            />
           </div>
           <div className='input-block'>
             <label htmlFor='login-password'>Password</label>
