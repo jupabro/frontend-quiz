@@ -4,10 +4,13 @@ import { closeLoginForm, storeFormInputs } from "../../../redux/modules/actions"
 import "./Form.css"
 import Icon from "@mdi/react"
 import { mdilEye, mdilEyeOff } from "@mdi/light-js"
+import useAuthService from "../../../services/api/intern-api/useAuthService"
 
 const LoginForm = ({ activeTab, handleSwitchTab }) => {
+  //TODO: input data tranfer does not work properly when switchinf from small to big screen.
   const dispatch = useDispatch()
   const storedInputs = useSelector((state) => state.loginForm.formInputs)
+  const login = useAuthService().login
 
   const [passwordVisible, setPasswordVisible] = useState(false)
   const [email, setEmail] = useState("")
@@ -41,7 +44,7 @@ const LoginForm = ({ activeTab, handleSwitchTab }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // login logic
+    login(email, pwd)
 
     dispatch(closeLoginForm())
   }

@@ -4,13 +4,16 @@ import { closeLoginForm, storeFormInputs } from "../../../redux/modules/actions"
 import "./Form.css"
 import Icon from "@mdi/react"
 import { mdilCheck, mdilInformation, mdilEye, mdilEyeOff } from "@mdi/light-js"
+import useAuthService from "../../../services/api/intern-api/useAuthService"
 
 const EMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
 
 const SignUpForm = ({ activeTab, handleSwitchTab }) => {
+  //TODO: input data tranfer does not work properly when switchinf from small to big screen.
   const dispatch = useDispatch()
   const storedInputs = useSelector((state) => state.loginForm.formInputs)
+  const register = useAuthService().register
 
   const [email, setEmail] = useState("")
   const [validEmail, setValidEmail] = useState(false)
@@ -77,8 +80,7 @@ const SignUpForm = ({ activeTab, handleSwitchTab }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!validEmail || !validMatch || !validPwd) return
-
-    console.log("signup submit", email, pwd)
+    register(email, pwd)
     dispatch(closeLoginForm())
   }
 

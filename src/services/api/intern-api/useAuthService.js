@@ -1,22 +1,26 @@
 import axios from "axios"
 import { useState } from "react"
 
-axios.create({
-  baseURL: "http://localhost:8080",
-})
+const BASE_URL = "http://localhost:8080"
 
 function useAuthService() {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  const register = async (user) => {
+  const register = async (email, pwd) => {
     setLoading(true)
 
+    const credentials = { email: email, password: pwd }
+
     try {
-      const response = await axios("post", "/api/v1/auth/register", user)
-      setUser(response.body)
-      console.log("Registration successful:", user)
+      const response = await axios.post(
+        `${BASE_URL}/api/v1/auth/register`,
+        credentials
+      )
+      console.log("API response", response)
+      setUser(response.data)
+      console.log("Registration successful:")
     } catch (error) {
       setError(error)
       console.error("Registration error:", error)
@@ -25,15 +29,24 @@ function useAuthService() {
     }
   }
 
-  const test = async () => {
+  const login = async (email, pwd) => {
     setLoading(true)
 
+    const authHeader = {
+      headers: {
+        Authorization: `Basic ${window.btoa(`${email}:${pwd}`)}`,
+      },
+    }
     try {
-      const response = await axios("post", "/api/v1/auth/test")
-      console.log("Test successful:", response.body)
+      const response = await axios.post(
+        `${BASE_URL}/api/v1/auth/authenticate`,
+        null,
+        authHeader
+      )
+      console.log("Registration successful:", response.data)
     } catch (error) {
       setError(error)
-      console.error("Test error:", error)
+      console.error("Registration error:", error)
     } finally {
       setLoading(false)
     }
@@ -44,7 +57,7 @@ function useAuthService() {
     loading,
     error,
     register,
-    test,
+    login,
   }
 }
 
