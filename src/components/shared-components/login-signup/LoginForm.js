@@ -14,21 +14,25 @@ const LoginForm = ({ activeTab, handleSwitchTab }) => {
   const [pwd, setPwd] = useState("")
 
   useEffect(() => {
-    console.log("useeffect in login", storedInputs)
-
-    if (storedInputs != null) {
-      setEmail(storedInputs.email)
-      setPwd(storedInputs.pwd)
-    } else {
-      setEmail("")
-      setPwd("")
+    if (activeTab === "login") {
+      if (storedInputs != null) {
+        setEmail(storedInputs.email)
+        setPwd(storedInputs.pwd)
+      } else {
+        setEmail("")
+        setPwd("")
+      }
     }
+    // eslint-disable-next-line
   }, [storedInputs])
 
   useEffect(() => {
-    if (activeTab === "signup") {
+    // when tab switches by click event on the other form (big screen)
+    // store this form data in order to update the other form
+    if (activeTab === "signup" && window.innerWidth >= 500) {
       dispatch(storeFormInputs({ email: email, pwd: pwd }))
     }
+    // eslint-disable-next-line
   }, [activeTab])
 
   const togglePasswordVisibility = () => {
@@ -42,7 +46,7 @@ const LoginForm = ({ activeTab, handleSwitchTab }) => {
     dispatch(closeLoginForm())
   }
 
-  const handleClick = (e) => {
+  const handleClickOnAtherForm = (e) => {
     if (activeTab === "signup") {
       handleSwitchTab("login", e)
     }
@@ -56,7 +60,7 @@ const LoginForm = ({ activeTab, handleSwitchTab }) => {
   return (
     <>
       {activeTab === "signup" && (
-        <div className='overlay' onClick={handleClick}>
+        <div className='overlay' onClick={handleClickOnAtherForm}>
           {" "}
         </div>
       )}
